@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.systemmanager.employeeapp">
+    package="com.example.a300275913.listofjobs">
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Job_Details"></activity>
     </application>
 
 </manifest>
