@@ -11,8 +11,15 @@ public class UserService {
 	UserDAO userDao = new UserDAO();  
    @GET 
    @Path("/users") 
-   @Produces(MediaType.APPLICATION_XML) 
+   @Produces(MediaType.APPLICATION_JSON) 
    public List<User> getUsers(){ 
+      return userDao.getAllUsers(); 
+   }  
+   
+   @GET 
+   @Path("/login") 
+   @Produces(MediaType.APPLICATION_JSON) 
+   public List<User> login(){ 
       return userDao.getAllUsers(); 
    }  
 }

@@ -18,7 +18,7 @@ public class User implements Serializable {
 	private String Fone;
 	private String Address;
 	private String Gender;
-	private int UserType_idUser;
+	private int idUserType;
 
 	public User() {
 	}
@@ -29,7 +29,7 @@ public class User implements Serializable {
 		this.Fone = fone;
 		this.Address = address;
 		this.Gender = gender;
-		this.UserType_idUser = usertype;
+		this.idUserType = usertype;
 
 	}
 
@@ -43,13 +43,14 @@ public class User implements Serializable {
 	}
 	
 	public int getIdType() {
-		return UserType_idUser;
+		return idUserType;
 	}
 
 	@XmlElement
 	public void setIdType(int id) {
-		this.UserType_idUser = id;
+		this.idUserType = id;
 	}
+	
 	public String getName() {
 		return Name;
 	}
