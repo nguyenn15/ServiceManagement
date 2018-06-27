@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import org.w3c.dom.ProcessingInstruction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderDetails extends AppCompatActivity {
     private Toolbar mToolbar;
     DrawerLayout drawerLayout;
@@ -24,6 +27,7 @@ public class OrderDetails extends AppCompatActivity {
     private TextView orderNumber;
     private Button btnAssign;
     private Spinner empSpinner;
+    List<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +38,19 @@ public class OrderDetails extends AppCompatActivity {
         btnAssign=(Button)findViewById(R.id.btnAssign);
         empSpinner = (Spinner) findViewById(R.id.empSpinner);
 
-        String[] spinner_item = new String[]{
-                "emp1",
-                "emp2"
-        };
+         list = new ArrayList<String>();
+        list.add("Afghanistan");
+        list.add("Bangladesh");
+        list.add("Bhutan");
+        list.add("India");
+        list.add("Maldives");
+        list.add("Sri Lanka");
+        list.add("Nepal");
+        list.add("Pakistan");
 
-
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner,spinner_item);
-
-
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner);
-        empSpinner.setAdapter(spinnerArrayAdapter);
-
-        spinnerArrayAdapter.notifyDataSetChanged();
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        empSpinner.setAdapter(dataAdapter);
 
         String s = getIntent().getStringExtra("order_number");
         orderNumber.setText(s);
