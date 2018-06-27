@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:title="@string/homeString" />
+        <item
+            android:id="@+id/profile"
+            android:title="@string/profileString" />
+        <item
+            android:id="@+id/assignjob"
+             android:title="@string/assignJobString" />
+
+        <item
+            android:id="@+id/addEmployee"
+            android:title="@string/addemployeeString" />
+
+        <item
+            android:id="@+id/editEmployee"
+            android:title="@string/editemployeeString" />
+
+        <item
+            android:id="@+id/jobsCompleted"
+            android:title="@string/checkJobsString" />
+        <item
+            android:id="@+id/logout"
+            android:title="@string/logoutString" />
+
+    </group>
+</menu>
