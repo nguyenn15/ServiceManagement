@@ -1,4 +1,4 @@
-package com.example.systemmanager.managerapp;
+package com.example.johal.companysystem;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.systemmanager.managerapp", appContext.getPackageName());
+        assertEquals("com.example.johal.companysystem", appContext.getPackageName());
     }
 }

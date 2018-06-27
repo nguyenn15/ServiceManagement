@@ -1,4 +1,4 @@
-package com.example.systemmanager.managerapp;
+package com.example.johal.companysystem;
 
 import org.junit.Test;
 
