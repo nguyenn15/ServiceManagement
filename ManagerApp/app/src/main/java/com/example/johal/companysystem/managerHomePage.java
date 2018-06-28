@@ -31,7 +31,7 @@ public class managerHomePage extends AppCompatActivity {
     private List<ListItem> listItems;
 
 
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,11 +78,7 @@ public class managerHomePage extends AppCompatActivity {
                         // add navigation drawer item onclick method here
                         startActivity(new Intent(managerHomePage.this, EditProfile.class));
                         break;
-                    case R.id.jobsCompleted:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
-                        startActivity(new Intent(managerHomePage.this, CompletedJobs.class));
-                        break;
+
                     case R.id.logout:
                         //Do some thing here
                         // add navigation drawer item onclick method here

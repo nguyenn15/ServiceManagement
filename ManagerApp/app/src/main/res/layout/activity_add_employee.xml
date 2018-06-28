@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name"
+                android:hint="First Name"
               />
 
 
@@ -54,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Last Name"
+
                 />
 
             <EditText
@@ -62,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name"
+               android:hint="Last Name"
                  />
 
             <TextView
@@ -78,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number"
+                android:hint="Enter SIN "
                  />
 
             <TextView
@@ -93,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textEmailAddress"
+                android:hint="Email"
                 />
 
             <TextView
@@ -109,7 +112,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name"
+
+                android:hint="password"
                  />
 
             <TextView
@@ -125,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name"
+               android:hint="Position"
                />
 
             <Button

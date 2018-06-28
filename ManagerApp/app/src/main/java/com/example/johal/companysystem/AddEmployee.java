@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,13 +87,9 @@ public class AddEmployee extends AppCompatActivity {
                     case R.id.editEmployee:
                         //Do some thing here
                         // add navigation drawer item onclick method here
-                        startActivity(new Intent(AddEmployee.this, EditEmployee.class));
+                        startActivity(new Intent(AddEmployee.this, EmployeeEdit.class));
                         break;
-                    case R.id.jobsCompleted:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
-                        startActivity(new Intent(AddEmployee.this, CompletedJobs.class));
-                        break;
+
                     case R.id.logout:
                         //Do some thing here
                         // add navigation drawer item onclick method here
@@ -111,6 +108,7 @@ public class AddEmployee extends AppCompatActivity {
         employeeList.add(new Employee(id,fn.getText().toString(),ln.getText().toString()
                 ,Integer.parseInt(sin.getText().toString())
                 ,email.getText().toString(),password.getText().toString(),position.getText().toString()));
+        Toast.makeText(this,"employee added",Toast.LENGTH_SHORT).show();
 
     }
 

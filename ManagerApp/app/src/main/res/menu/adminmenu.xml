@@ -19,9 +19,7 @@
             android:id="@+id/editEmployee"
             android:title="@string/editemployeeString" />
 
-        <item
-            android:id="@+id/jobsCompleted"
-            android:title="@string/checkJobsString" />
+
         <item
             android:id="@+id/logout"
             android:title="@string/logoutString" />

@@ -27,7 +27,7 @@ public class OrderDetails extends AppCompatActivity {
     private TextView orderNumber;
     private Button btnAssign;
     private Spinner empSpinner;
-    List<String> list;
+    List list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +38,19 @@ public class OrderDetails extends AppCompatActivity {
         btnAssign=(Button)findViewById(R.id.btnAssign);
         empSpinner = (Spinner) findViewById(R.id.empSpinner);
 
-         list = new ArrayList<String>();
-        list.add("Afghanistan");
-        list.add("Bangladesh");
-        list.add("Bhutan");
-        list.add("India");
-        list.add("Maldives");
-        list.add("Sri Lanka");
-        list.add("Nepal");
-        list.add("Pakistan");
+        list = new ArrayList<String>();
+        list.add("Arsh");
+        list.add("raman");
+        list.add("tony");
+        list.add("parneet");
+
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         empSpinner.setAdapter(dataAdapter);
+
+
+
 
         String s = getIntent().getStringExtra("order_number");
         orderNumber.setText(s);
@@ -101,11 +101,7 @@ public class OrderDetails extends AppCompatActivity {
                         // add navigation drawer item onclick method here
                         startActivity(new Intent(OrderDetails.this, EditProfile.class));
                         break;
-                    case R.id.jobsCompleted:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
-                        startActivity(new Intent(OrderDetails.this, CompletedJobs.class));
-                        break;
+
                     case R.id.logout:
                         //Do some thing here
                         // add navigation drawer item onclick method here

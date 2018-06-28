@@ -23,9 +23,7 @@
         <activity android:name=".EditProfile" />
         <activity android:name=".AddEmployee" />
         <activity android:name=".EmployeeEdit" />
-        <activity android:name=".CompletedJobs" />
         <activity android:name=".AssignJob" />
-        <activity android:name=".EditEmployee" />
         <activity android:name=".OrderDetails" />
     </application>
 
