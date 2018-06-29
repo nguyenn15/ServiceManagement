@@ -63,11 +63,7 @@ public class managerHomePage extends AppCompatActivity {
                         startActivity(new Intent(managerHomePage.this, EditProfile.class));
 
                         break;
-                    case R.id.assignjob:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
-                        startActivity(new Intent(managerHomePage.this, AssignJob.class));
-                        break;
+
                     case R.id.addEmployee:
                         //Do some thing here
                         // add navigation drawer item onclick method here

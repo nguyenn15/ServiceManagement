@@ -23,7 +23,6 @@
         <activity android:name=".EditProfile" />
         <activity android:name=".AddEmployee" />
         <activity android:name=".EmployeeEdit" />
-        <activity android:name=".AssignJob" />
         <activity android:name=".OrderDetails" />
     </application>
 

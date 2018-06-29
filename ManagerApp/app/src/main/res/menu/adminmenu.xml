@@ -8,10 +8,6 @@
             android:id="@+id/profile"
             android:title="@string/profileString" />
         <item
-            android:id="@+id/assignjob"
-             android:title="@string/assignJobString" />
-
-        <item
             android:id="@+id/addEmployee"
             android:title="@string/addemployeeString" />
 

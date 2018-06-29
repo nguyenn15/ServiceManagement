@@ -86,11 +86,7 @@ public class OrderDetails extends AppCompatActivity {
                         startActivity(new Intent(OrderDetails.this, EditProfile.class));
 
                         break;
-                    case R.id.assignjob:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
-                        startActivity(new Intent(OrderDetails.this, AssignJob.class));
-                        break;
+
                     case R.id.addEmployee:
                         //Do some thing here
                         // add navigation drawer item onclick method here
