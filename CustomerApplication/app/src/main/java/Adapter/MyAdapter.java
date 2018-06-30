@@ -2,17 +2,20 @@ package Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
-import com.example.johal.companysystem.OrderDetails;
-import com.example.johal.companysystem.R;
+import com.example.amandeep.customerapplication.AcceptOrderActivity;
+import com.example.amandeep.customerapplication.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Model.ListItem;
@@ -42,7 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder> {
         ListItem listItem=listItems.get(position);
 
         holder.description.setText(listItem.getDescription());
-        holder.button.setText(listItem.getButtonText());
+        holder.status.setText(listItem.getStatus());
 
     }
 
@@ -54,27 +57,36 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView description;
-        public Button button;
+        public TextView status;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             description=(TextView)itemView.findViewById(R.id.txtDescription);
+            status=(TextView)itemView.findViewById(R.id.status);
             itemView.setOnClickListener(this);
-
-            button=(Button)itemView.findViewById(R.id.statusButton);
-
         }
 
         @Override
         public void onClick(View view) {
             int position=getAdapterPosition();
             ListItem item= listItems.get(position);
-            Intent intent= new Intent(context, OrderDetails.class);
-            intent.putExtra("order_number",item.getDescription());
-            context.startActivity(intent);
+
+            if(item.getStatus().equals("approved"))
+            {
+                Intent intent= new Intent(context, AcceptOrderActivity.class);
+                intent.putExtra("accepted request",item.getDescription());
+                context.startActivity(intent);
+            }
+            else
+            {
+                Toast.makeText(context,"Pending Request",Toast.LENGTH_SHORT).show();
+            }
+
 
         }
+
+
     }
 }
