@@ -80,11 +80,7 @@ update.setOnClickListener(new View.OnClickListener() {
                         // add navigation drawer item onclick method here
                         startActivity(new Intent(EditProfile.this, AddEmployee.class));
                         break;
-                    case R.id.editEmployee:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
-                        startActivity(new Intent(EditProfile.this, EmployeeEdit.class));
-                        break;
+
 
                     case R.id.logout:
                         //Do some thing here

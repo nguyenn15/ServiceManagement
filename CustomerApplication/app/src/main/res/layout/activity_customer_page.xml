@@ -27,9 +27,8 @@
         <TextView
             android:id="@+id/Heading"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="45dp"
             android:layout_marginTop="10dp"
-            android:layout_weight=".02"
             android:text="Security Service"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
@@ -40,7 +39,8 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/camera" />
 
         <Button
@@ -48,7 +48,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:text="Book Service" />
+            android:text="Request Service"
+            android:textColor="#ffffff"
+            android:layout_margin="20dp"/>
 
 
 

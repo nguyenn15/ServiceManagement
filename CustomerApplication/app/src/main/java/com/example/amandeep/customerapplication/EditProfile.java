@@ -101,6 +101,6 @@ public class EditProfile extends AppCompatActivity {
 
     private void setupToolbarMenu() {
         mToolbar=(Toolbar)findViewById(R.id.toolbar);
-        mToolbar.setTitle("Add Employee");
+        mToolbar.setTitle("Profile");
     }
 }

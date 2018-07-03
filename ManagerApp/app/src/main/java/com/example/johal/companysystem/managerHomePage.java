@@ -69,11 +69,6 @@ public class managerHomePage extends AppCompatActivity {
                         // add navigation drawer item onclick method here
                         startActivity(new Intent(managerHomePage.this, AddEmployee.class));
                         break;
-                    case R.id.editEmployee:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
-                        startActivity(new Intent(managerHomePage.this, EditProfile.class));
-                        break;
 
                     case R.id.logout:
                         //Do some thing here
@@ -100,11 +95,11 @@ public class managerHomePage extends AppCompatActivity {
     public void addOrders()
         {
             int id=1;
-            orders.add(new Order(id,"first","pending"));
-            orders.add(new Order(id+1,"second","approved"));
-            orders.add(new Order(id+2,"third","pending"));
-            orders.add(new Order(id+3,"fourth","approved"));
-            orders.add(new Order(id+4,"fifth","pending"));
+            orders.add(new Order(id,"first","Not Assigned"));
+            orders.add(new Order(id+1,"second","Not assigned"));
+            orders.add(new Order(id+2,"third","Not Assigned"));
+            orders.add(new Order(id+3,"fourth","Not Assigned"));
+            orders.add(new Order(id+4,"fifth","Not Assigned"));
 
 
         }

@@ -42,7 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder> {
         ListItem listItem=listItems.get(position);
 
         holder.description.setText(listItem.getDescription());
-        holder.button.setText(listItem.getButtonText());
+        holder.statusText.setText(listItem.getButtonText());
 
     }
 
@@ -54,7 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView description;
-        public Button button;
+        public TextView statusText;
 
 
         public ViewHolder(View itemView) {
@@ -63,7 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder> {
             description=(TextView)itemView.findViewById(R.id.txtDescription);
             itemView.setOnClickListener(this);
 
-            button=(Button)itemView.findViewById(R.id.statusButton);
+            statusText=(TextView) itemView.findViewById(R.id.statusText);
 
         }
 

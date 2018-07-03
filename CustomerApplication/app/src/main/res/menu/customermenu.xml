@@ -3,7 +3,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
-            android:title="Home" />
+            android:title="Request Service" />
         <item
             android:id="@+id/profile"
             android:title="Edit Profile" />

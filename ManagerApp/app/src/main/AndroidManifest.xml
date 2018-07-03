@@ -22,7 +22,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".EditProfile" />
         <activity android:name=".AddEmployee" />
-        <activity android:name=".EmployeeEdit" />
         <activity android:name=".OrderDetails" />
     </application>
 

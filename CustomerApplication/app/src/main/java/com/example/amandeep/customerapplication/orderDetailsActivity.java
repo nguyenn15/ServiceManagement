@@ -95,7 +95,7 @@ public class orderDetailsActivity extends AppCompatActivity {
 
     private void setupToolbarMenu() {
         mToolbar=(Toolbar)findViewById(R.id.toolbar);
-        mToolbar.setTitle("Order Details");
+        mToolbar.setTitle("Request Service");
     }
 
     public void sendRequest()

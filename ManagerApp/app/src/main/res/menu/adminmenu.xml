@@ -11,10 +11,6 @@
             android:id="@+id/addEmployee"
             android:title="@string/addemployeeString" />
 
-        <item
-            android:id="@+id/editEmployee"
-            android:title="@string/editemployeeString" />
-
 
         <item
             android:id="@+id/logout"
