@@ -5,23 +5,26 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 
 public class UserType implements Serializable {
-	private int idUserType;
+	
+	public static enum USERTYPE {ADMIN, MANAGER, CUSTOMER, EMPLOYEE};
+	
+	private USERTYPE idUserType;
 	private String UserType;
 	
 	public UserType() {
 	}
 
-	public UserType(int id, String type) {
+	public UserType(USERTYPE id, String type) {
 		this.idUserType = id;
 		this.UserType = type;
 	}
 
-	public int getId() {
+	public USERTYPE getId() {
 		return idUserType;
 	}
 
 	@XmlElement
-	public void setId(int id) {
+	public void setId(USERTYPE id) {
 		this.idUserType = id;
 	}
 	
