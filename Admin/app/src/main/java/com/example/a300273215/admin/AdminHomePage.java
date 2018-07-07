@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,29 +28,20 @@ public class AdminHomePage extends AppCompatActivity {
     NavigationView navigation;
     private Toolbar mToolbar;
 
-
-    List<Order> orders=new ArrayList<>();
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<ListItem> listItems;
-
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home_page);
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         setupToolbarMenu();
 
-        ActionBarDrawerToggle drawerToggle=new ActionBarDrawerToggle
-                (this, drawerLayout, mToolbar, R.string.drawerOpen, R.string.drawerClose);
+        ActionBarDrawerToggle drawerToggle=new ActionBarDrawerToggle(this, drawerLayout, mToolbar, R.string.drawerOpen, R.string.drawerClose);
 
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-        navigation = (NavigationView) findViewById(R.id.nav_view);
+        navigation = (NavigationView)findViewById(R.id.nav_view);
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -74,46 +68,42 @@ public class AdminHomePage extends AppCompatActivity {
                 return false;
             }
         });
-        addOrders();
-        setRecyclerView();
 
 
 
+
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Normal Requests"));
+        tabLayout.addTab(tabLayout.newTab().setText("Ready to Process"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PageAdapter adapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 
     private void setupToolbarMenu() {
         mToolbar=(Toolbar)findViewById(R.id.toolbar);
-        mToolbar.setTitle("Admin");
+        mToolbar.setTitle("REQUESTS");
     }
 
-    public void addOrders()
-    {
-        int id=1;
-        orders.add(new Order(id,"first","Send to Manager"));
-        orders.add(new Order(id+1,"second","Send to Manager"));
-        orders.add(new Order(id+2,"third","Send to Manager"));
-        orders.add(new Order(id+3,"fourth","Send to Manager"));
-        orders.add(new Order(id+4,"fifth","Send to Manager"));
-
-
-    }
-
-    public void setRecyclerView()
-    {
-        recyclerView=(RecyclerView)findViewById(R.id.recycleView);
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        listItems=new ArrayList<>();
-
-        for(Order tp : orders){
-            ListItem listItem=new ListItem("Request Number "+ tp.getId()+"",tp.getStatus().toString());
-            listItems.add(listItem);
-        }
-
-        adapter=new MyAdapter(this,listItems);
-        recyclerView.setAdapter(adapter);
-    }
 }
