@@ -27,12 +27,12 @@ public class UserService {
    @Path("/login") 
    @Produces(MediaType.APPLICATION_JSON) 
    public User login(
-		   @QueryParam("username") int username,
+		   @QueryParam("username") String username,
 		   @QueryParam("password") String password
 		   ){ 
 	   User user= userDao.selectUserForLogin(username, password, USERTYPE.EMPLOYEE); 
 	  
-      return user;
+      return userDao.getAllUsers().get(0); 
    }  
    
    

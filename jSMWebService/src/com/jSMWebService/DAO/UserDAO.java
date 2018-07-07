@@ -37,16 +37,16 @@ public class UserDAO extends BaseDAO {
 		  }
    }
    
-   public User selectUserForLogin(int userId, String password, USERTYPE userType)
+   public User selectUserForLogin(String email, String password, USERTYPE userType)
    {
 	 
 	   try (Connection con = sql2o.open()) {
 		    final String query =
 		        "SELECT * " +
-		        "FROM User WHERE idUser = :userId and password = :password and idUserType = :userType";
+		        "FROM User WHERE email = :email and password = :password and idUserType = :userType";
 
 		    return con.createQuery(query)
-		        .addParameter("userId", userId)
+		        .addParameter("email", email)
 		        .addParameter("password", password)
 		        .addParameter("userType", userType)
 		        .executeAndFetchFirst(User.class);

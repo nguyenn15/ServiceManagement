@@ -18,6 +18,8 @@ public class User implements Serializable {
 	private String Fone;
 	private String Address;
 	private String Gender;
+	private String Email;
+	private String Password;
 	private int idUserType;
 
 	public User() {
@@ -85,5 +87,19 @@ public class User implements Serializable {
 	@XmlElement
 	public void setGender(String gender) {
 		this.Gender = gender;
+	}
+	public String getEmail() {
+		return Email;
+	}
+	public String getPassword() {
+		return Password;
+	}
+	@XmlElement
+	public void setEmail(String email) {
+		this.Email = email;
+	}
+	@XmlElement
+	public void setPassword(String password) {
+		this.Password = password;
 	}
 }
