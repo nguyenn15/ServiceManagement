@@ -74,8 +74,8 @@ public class AdminHomePage extends AppCompatActivity {
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Normal Requests"));
-        tabLayout.addTab(tabLayout.newTab().setText("Ready to Process"));
+        tabLayout.addTab(tabLayout.newTab().setText("Requests From Customers"));
+        tabLayout.addTab(tabLayout.newTab().setText("Accepted Requests from Customers"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

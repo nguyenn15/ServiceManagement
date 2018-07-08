@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapter.MyAdapter;
+import adapter.Tab1RecyclerAdapter;
 import model.ListItem;
 
 /**
@@ -35,11 +36,8 @@ public class TabFragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_fragment_1, container, false);
-
         addOrders();
         setRecyclerView(view);
-
-
         return view;
 
     }
@@ -47,11 +45,11 @@ public class TabFragment1 extends Fragment {
 
     public void addOrders() {
         int id = 1;
-        orders.add(new Order(id, "first", "Send to Manager"));
-        orders.add(new Order(id + 1, "second", "Send to Manager"));
-        orders.add(new Order(id + 2, "third", "Send to Manager"));
-        orders.add(new Order(id + 3, "fourth", "Send to Manager"));
-        orders.add(new Order(id + 4, "fifth", "Send to Manager"));
+        orders.add(new Order(id, "first", "Send Cost Qoute to Customer"));
+        orders.add(new Order(id + 1, "second", "Send Cost Qoute to Customer"));
+        orders.add(new Order(id + 2, "third", "Send Cost Qoute to Customer"));
+        orders.add(new Order(id + 3, "fourth", "Send Cost Qoute to Customer"));
+        orders.add(new Order(id + 4, "fifth", "Send Cost Qoute to Customer"));
 
 
     }
@@ -69,7 +67,7 @@ public class TabFragment1 extends Fragment {
             listItems.add(listItem);
         }
 
-        adapter = new MyAdapter(getActivity(), listItems);
+        adapter = new Tab1RecyclerAdapter(getActivity(), listItems);
         recyclerView.setAdapter(adapter);
     }
 
