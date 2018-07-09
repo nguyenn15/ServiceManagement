@@ -4,9 +4,11 @@ package com.jSMWebService.DAO;
 import java.util.List;
 
 import org.sql2o.Connection;
+import org.sql2o.Query;
 
 import com.jSMWebService.*;
-import com.jSMWebService.UserType.USERTYPE;  
+import com.jSMWebService.UserType.USERTYPE;
+
 
 public class UserDAO extends BaseDAO { 
 	
@@ -23,6 +25,21 @@ public class UserDAO extends BaseDAO {
      
    } 
    
+   
+   public List<User> selectUsersByType(USERTYPE userType){
+	   String sql =
+		        "SELECT * " +
+		        "FROM User " + 
+		        "Where idUserType = :userType";
+
+		    try(Connection con = sql2o.open()) {
+		        return con.createQuery(sql)
+		        		.addParameter("userType", userType)
+		        		.executeAndFetch(User.class);
+		    }
+	      
+   } 
+   
    public User selectUserByID(int userId)
    {
 	 
@@ -37,19 +54,22 @@ public class UserDAO extends BaseDAO {
 		  }
    }
    
-   public User selectUserForLogin(String email, String password, USERTYPE userType)
+   public User selectUserForLogin(String email, String password, int userType)
    {
 	 
 	   try (Connection con = sql2o.open()) {
-		    final String query =
+		    final String querystr =
 		        "SELECT * " +
-		        "FROM User WHERE email = :email and password = :password and idUserType = :userType";
-
-		    return con.createQuery(query)
-		        .addParameter("email", email)
-		        .addParameter("password", password)
-		        .addParameter("userType", userType)
-		        .executeAndFetchFirst(User.class);
+		        "FROM User WHERE email = :email and password = :password and idUserType =:userType";
+		    Query query =con.createQuery(querystr)
+			        .addParameter("email", "admin")
+			        .addParameter("password", "1234")
+			        .addParameter("userType", userType);
+		    
+		    // debug print query string.
+		    System.out.println(query.toString() +"---"+ userType);
+		    
+		    return 	query.executeAndFetchFirst(User.class);
 		  }
    }
    

@@ -92,4 +92,61 @@ public class RequestOrderDAO extends BaseDAO {
 			  }
 	   }
 
+	   
+	   public void Create(RequestOrder requestorder) {
+		   
+		   
+		   String insertSql = 
+					" INSERT INTO `requestorder` (`Date`, `Area`, `Medium`, `NoOfDoors`, `Entry_Exit_Doors`, `OpenWindows`, `OpenAreas`, `DoorBell`, `LocationOfService`, `Status`, `idCustomer`) "
+					+" VALUES (  :Date, :Area, :Medium, :NoOfDoors, :Entry_Exit_Doors, :OpenWindows, :OpenAreas, :DoorBell, :LocationOfService, :Status, :idCustomer )" ; 
+					
+				try (Connection con = sql2o.open()) {
+				    con.createQuery(insertSql)
+				    		//.addParameter("idRequest",requestorder.getIdRequest())
+				    		.addParameter("Date",requestorder.getDate())
+				    		.addParameter("Area",requestorder.getArea())
+				    		.addParameter("Medium",requestorder.getMedium())
+				    		.addParameter("NoOfDoors",requestorder.getNoOfDoors())
+				    		.addParameter("Entry_Exit_Doors",requestorder.getEntry_Exit_Doors())
+				    		.addParameter("OpenWindows",requestorder.getOpenWindows())
+				    		.addParameter("OpenAreas",requestorder.getOpenAreas())
+				    		.addParameter("DoorBell",requestorder.getDoorBell())
+				    		.addParameter("LocationOfService",requestorder.getLocationOfService())
+				    		.addParameter("Status",requestorder.getStatus())
+				    		.addParameter("idCustomer",requestorder.getIdCustomer())
+					    .executeUpdate();
+				}
+			
+	   }
+	   
+	   public void Update(RequestOrder requestorder) {
+		   
+		   String updateSql = "update requestorder"
+		   		+ " set "
+		   		+ " `Date`=:Date , `Area`=:Area , `Medium`=:Medium , `NoOfDoors`=:NoOfDoors ,"
+		   		+ " `Entry_Exit_Doors`=:Entry_Exit_Doors , `OpenWindows`=:OpenWindows , `OpenAreas`=:OpenAreas, `DoorBell`=:DoorBell , `LocationOfService`=:LocationOfService , `Status`=:Status ,"
+		   		+ " `idCustomer` =:idCustomer, `idManager` =:idManager, `idAdmin` =:idAdmin`"  
+		   		+ " where idRequest = :idRequest";
+
+				try (Connection con = sql2o.open()) {
+				    con.createQuery(updateSql)
+				    		.addParameter("idRequest",requestorder.getIdRequest())
+				    		.addParameter("Date",requestorder.getDate())
+				    		.addParameter("Area",requestorder.getArea())
+				    		.addParameter("Medium",requestorder.getMedium())
+				    		.addParameter("NoOfDoors",requestorder.getNoOfDoors())
+				    		.addParameter("Entry_Exit_Doors",requestorder.getEntry_Exit_Doors())
+				    		.addParameter("OpenWindows",requestorder.getOpenWindows())
+				    		.addParameter("OpenAreas",requestorder.getOpenAreas())
+				    		.addParameter("DoorBell",requestorder.getDoorBell())
+				    		.addParameter("LocationOfService",requestorder.getLocationOfService())
+				    		.addParameter("Status",requestorder.getStatus())
+				    		.addParameter("idCustomer",requestorder.getIdCustomer())
+				    		.addParameter("idManager",requestorder.getIdManager())
+				    		.addParameter("idAdmin",requestorder.getIdAdmin())
+					    .executeUpdate();
+				}
+			
+	   }
+	   
 }

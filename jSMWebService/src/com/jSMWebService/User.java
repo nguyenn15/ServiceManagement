@@ -20,7 +20,7 @@ public class User implements Serializable {
 	private String Gender;
 	private String Email;
 	private String Password;
-	private int idUserType;
+	private int idUserType; // should get value from UserType.USERTYPE
 
 	public User() {
 	}

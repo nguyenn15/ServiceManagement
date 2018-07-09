@@ -10,6 +10,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.jSMWebService.User;
+import com.jSMWebService.UserType;
 import com.jSMWebService.DAO.UserDAO;
 import com.jSMWebService.UserType.USERTYPE;  
 @Path("/UserService") 
@@ -28,11 +29,22 @@ public class UserService {
    @Produces(MediaType.APPLICATION_JSON) 
    public User login(
 		   @QueryParam("username") String username,
-		   @QueryParam("password") String password
-		   ){ 
-	   User user= userDao.selectUserForLogin(username, password, USERTYPE.EMPLOYEE); 
+		   @QueryParam("password") String password,
+		   @QueryParam("usertype") String usertype	// ADMIN, MANAGER, CUSTOMER, EMPLOYEE
+		   )
+   { 
+	   
+	  int utype = UserType.FromString(usertype);	   
 	  
-      return userDao.getAllUsers().get(0); 
+	  User user= userDao.selectUserForLogin(username, password, utype); 
+	  
+	  if(user ==null)
+	  {
+		  user = new User(0, "no user", "123465", "address", "MALE" , 0);
+		  System.out.println("Can not find user:" + username + " with password: "+ password);
+	  }
+	  
+      return user;
    }  
    
    

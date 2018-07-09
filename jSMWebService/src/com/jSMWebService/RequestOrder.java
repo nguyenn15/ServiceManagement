@@ -7,7 +7,22 @@ import javax.persistence.TemporalType;
 
 public class RequestOrder implements Serializable {
 	
-	public static enum STATUS {PENDING, ACCEPTED, REJECTED}
+	public static enum STATUS {PENDING(0), ACCEPTED(1), REJECTED(2);
+	
+		 private final int status;
+		 STATUS(int status) { this.status = status; }
+		 public int getValue() { return status; }
+		 public static STATUS FromInt(int value)
+		 {
+			 switch(value)
+			 {
+				 case 0: return STATUS.PENDING;
+				 case 1: return STATUS.ACCEPTED;
+				 case 2: return STATUS.REJECTED;
+			 }
+			 return STATUS.PENDING;
+		 }
+	}
 	
 	private int idRequest;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -20,7 +35,8 @@ public class RequestOrder implements Serializable {
 	private double OpenAreas;
 	private int DoorBell;
 	private String LocationOfService;
-	private STATUS Status = STATUS.PENDING;
+	
+	private int Status = STATUS.PENDING.getValue();
 	private int idCustomer;
 	private int idManager;
 	private int idAdmin;
@@ -40,13 +56,17 @@ public class RequestOrder implements Serializable {
 		this.OpenAreas = openareas;
 		this.DoorBell= doorbell;
 		this.LocationOfService = locationservice;
-		this.Status = status;
+		this.Status = status.getValue();
 		this.idCustomer = idcustomer;
 		this.idManager = idmanager;
 		this.idAdmin = idadmin;
+		this.Date = new java.util.Date();
 	}
 	
 	public int getIdRequest() { return this.idRequest; }
+	
+	
+	public java.util.Date getDate() { return this.Date; }
 	
 	public double getArea() { return this.Area; }
 	
@@ -59,12 +79,15 @@ public class RequestOrder implements Serializable {
 	
 	public int getDoorBell() { return this.DoorBell; }
 	public String getLocationOfService() { return this.LocationOfService; }
-	public STATUS getStatus() { return this.Status; }
-	public int getIdCustomer() { return this.Medium; }
-	public int getIdManager() { return this.Medium; }
-	public int getIdAdmin() { return this.Medium; }
+	public int getStatus() { return this.Status; }
+	public int getIdCustomer() { return this.idCustomer; }
+	public int getIdManager() { return this.idManager; }
+	public int getIdAdmin() { return this.idAdmin; }
 	
 	public void setIdRequest(int idrequest) {  this.idRequest = idrequest; }
+	
+	
+	public void setDate(java.util.Date date) {  this.Date = date; }
 	
 	public void setArea(double area) {  this.Area = area; }
 	
