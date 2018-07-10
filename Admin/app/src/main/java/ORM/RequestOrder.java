@@ -1,8 +1,9 @@
 package ORM;
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 /**
  * Class Pojo of RequestOrder, will be used for store object from json of webservice

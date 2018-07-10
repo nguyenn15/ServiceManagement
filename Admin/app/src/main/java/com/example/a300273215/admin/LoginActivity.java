@@ -9,7 +9,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import ORM.User;
+import Service.FactoryServiceAPI;
+import Service.UserApi;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,22 +38,57 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(email.getText().toString().equals(loginManager.get(0))
-                        &&password.getText().toString().equals(loginManager.get(1)))
-                {
-                    Intent myIntent = new Intent(LoginActivity.this,
-                            AdminHomePage.class);
-                    startActivity(myIntent);
-                }
-                else
-                {
-                    Toast.makeText(LoginActivity.this,"Fill Credentials",Toast.LENGTH_SHORT).show();
-                }
 
 
+                Login(); // handle login
             }
         });
 
 
     }
+
+    public void Login()
+    {
+        final String uname = email.getText().toString();
+        final String pass = password.getText().toString();
+        final String usertype = "CUSTOMER"; // this app is for customer
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("username", uname);
+        params.put("password", pass);
+        params.put("usertype", usertype); /// ADMIN, CUSTOMER, EMPLOYEE, MANAGER
+
+        try {
+            UserApi userapi = FactoryServiceAPI.GetUserApi();
+            Call<User> users = userapi.Login(params);
+            users.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    // login succes if id >0
+                    User user = response.body();
+                    if(user.getId()>0)
+                    {
+                        FactoryServiceAPI.currentUser = user; // keep current logged user to system
+
+                        Intent myIntent = new Intent(LoginActivity.this,
+                                AdminHomePage.class);
+                        startActivity(myIntent);
+                    }
+                    else
+                    {
+                        Toast.makeText(LoginActivity.this,"fill crediantels",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                        int i=0;
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

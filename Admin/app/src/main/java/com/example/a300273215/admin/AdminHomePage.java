@@ -19,14 +19,23 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import ORM.RequestOrder;
+import ORM.User;
+import Service.FactoryServiceAPI;
+import Service.RequestOrderApi;
 import adapter.MyAdapter;
 import model.ListItem;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdminHomePage extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigation;
     private Toolbar mToolbar;
+
+    PageAdapter adapter;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -79,7 +88,7 @@ public class AdminHomePage extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PageAdapter adapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        adapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), new ArrayList<RequestOrder>());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -106,4 +115,36 @@ public class AdminHomePage extends AppCompatActivity {
         mToolbar.setTitle("REQUESTS");
     }
 
+
+    // get all request order in table
+    public void RequestOrders()
+    {
+        try {
+            RequestOrderApi requestorderApi = FactoryServiceAPI.GetRequesetOrderApi();
+            Call<List<RequestOrder>> requestorders = requestorderApi.RequestOrders();
+            requestorders.enqueue(new Callback<List<RequestOrder>>() {
+                @Override
+                public void onResponse(Call<List<RequestOrder>> call, Response<List<RequestOrder>> response) {
+                    List<RequestOrder> requestOrders = response.body();
+                    /// add to list here
+                    SetDataSourceFragment1(requestOrders);
+
+                }
+
+                @Override
+                public void onFailure(Call<List<RequestOrder>> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void SetDataSourceFragment1(List<RequestOrder> requestOrders) {
+        // get fragment 1
+
+
+    }
 }

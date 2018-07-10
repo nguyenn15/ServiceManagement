@@ -1,5 +1,6 @@
 package com.example.a300273215.admin;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import ORM.RequestOrder;
 import adapter.MyAdapter;
 import adapter.Tab1RecyclerAdapter;
 import model.ListItem;
@@ -28,29 +30,24 @@ import model.ListItem;
 public class TabFragment1 extends Fragment {
 
 
-    List<Order> orders = new ArrayList<>();
+    List<RequestOrder> orders = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<ListItem> listItems;
 
+    View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.tab_fragment_1, container, false);
-        addOrders();
+        view = inflater.inflate(R.layout.tab_fragment_1, container, false);
+        //addOrders();
         setRecyclerView(view);
         return view;
 
     }
 
 
-    public void addOrders() {
-        int id = 1;
-        orders.add(new Order(id, "first", "Send Cost Qoute to Customer"));
-        orders.add(new Order(id + 1, "second", "Send Cost Qoute to Customer"));
-        orders.add(new Order(id + 2, "third", "Send Cost Qoute to Customer"));
-        orders.add(new Order(id + 3, "fourth", "Send Cost Qoute to Customer"));
-        orders.add(new Order(id + 4, "fifth", "Send Cost Qoute to Customer"));
-
+    public void addOrders(List<RequestOrder> orders) {
+       this.orders = orders;
 
     }
 
@@ -62,8 +59,8 @@ public class TabFragment1 extends Fragment {
 
         listItems = new ArrayList<>();
 
-        for (Order tp : orders) {
-            ListItem listItem = new ListItem("Request Number " + tp.getId() + "", tp.getStatus().toString());
+        for (RequestOrder tp : orders) {
+            ListItem listItem = new ListItem("Request Number " + tp.getIdRequest() + "", tp.getStatus().toString());
             listItems.add(listItem);
         }
 

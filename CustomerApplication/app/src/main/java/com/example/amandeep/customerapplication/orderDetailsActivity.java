@@ -13,6 +13,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import ORM.RequestOrder;
+import ORM.User;
+import Service.FactoryServiceAPI;
+import Service.RequestOrderApi;
+import Service.UserApi;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class orderDetailsActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
@@ -22,12 +34,11 @@ public class orderDetailsActivity extends AppCompatActivity {
     Button request;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_details);
+
         area=(EditText)findViewById(R.id.areaEdit) ;
         noOfDoors=(EditText)findViewById(R.id.doorsEdit) ;
         entrtExit=(EditText)findViewById(R.id.entry_exit_edit) ;
@@ -98,6 +109,7 @@ public class orderDetailsActivity extends AppCompatActivity {
         mToolbar.setTitle("Request Service");
     }
 
+    // send a request to web service
     public void sendRequest()
     {
         if( !area.getText().toString().equals("")||
@@ -116,11 +128,49 @@ public class orderDetailsActivity extends AppCompatActivity {
             int doorBellsV=Integer.parseInt(doorBells.getText().toString());
             String addressV= address.getText().toString();
 
+            // create api interface
+            RequestOrderApi requestOrderApi = FactoryServiceAPI.GetRequesetOrderApi();
+            User currentUser = FactoryServiceAPI.currentUser;
+            // prepare params for api call
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("Area", String.valueOf(areaV));
+            params.put("Medium", String.valueOf(0));
+            params.put("NoOfDoors", String.valueOf(doorsV));
+            params.put("EntryDoors", String.valueOf(entryExitV));
+            params.put("OpenWindows",String.valueOf(openWindowsV) );
+            params.put("OpenAreas", String.valueOf(openAreaV));
+            params.put("DoorBell", String.valueOf(doorBellsV));
+            params.put("LocationOfService", addressV);
+            params.put("idCustomer", currentUser.getId().toString());
 
 
-            //update database
-            Toast.makeText(this,"area "+areaV+" "+"doors "+doorsV+" ",Toast.LENGTH_SHORT).show();
-//here first status to request assigned pending
+            try {
+                RequestOrderApi requestOrderApi1 = FactoryServiceAPI.GetRequesetOrderApi();
+                Call<RequestOrder> requestOrder = requestOrderApi1.Create(params);
+
+                requestOrder.enqueue(new Callback<RequestOrder>() {
+                    @Override
+                    public void onResponse(Call<RequestOrder> call, Response<RequestOrder> response) {
+                        RequestOrder requestOrder = response.body(); // ok webservice send back the created request order
+                        if(requestOrder==null)
+                        {
+                            Toast.makeText(orderDetailsActivity.this,"Cannot create the Request Order",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(orderDetailsActivity.this,"Create a Request Order with id: "+ requestOrder.getIdRequest(),Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<RequestOrder> call, Throwable t) {
+
+                    }
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
         }
 
