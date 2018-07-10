@@ -112,12 +112,12 @@ public class orderDetailsActivity extends AppCompatActivity {
     // send a request to web service
     public void sendRequest()
     {
-        if( !area.getText().toString().equals("")||
-                !noOfDoors.getText().toString().equals("")||
-                !entrtExit.getText().toString().equals("")||
-                !openArea.getText().toString().equals("")||
-               !openWin.getText().toString().equals("")||
-                !address.getText().toString().equals("")||
+        if( !area.getText().toString().equals("")&&
+                !noOfDoors.getText().toString().equals("")&&
+                !entrtExit.getText().toString().equals("")&&
+                !openArea.getText().toString().equals("")&&
+               !openWin.getText().toString().equals("")&&
+                !address.getText().toString().equals("")&&
                 !doorBells.getText().toString().equals(""))
         {
             double areaV=Double.parseDouble(area.getText().toString());
@@ -188,7 +188,7 @@ public class orderDetailsActivity extends AppCompatActivity {
 
         else
         {
-
+            Toast.makeText(orderDetailsActivity.this,"Fill all fields!",Toast.LENGTH_SHORT).show();
         }
 
     }

@@ -48,72 +48,55 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void Login()
-    {
-        final String uname = email.getText().toString();
-        final String pass = password.getText().toString();
+    public void Login() {
+        final String uname = email.getText().toString().trim();
+        final String pass = password.getText().toString().trim();
         final String usertype = "CUSTOMER"; // this app is for customer
 
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("username", uname);
-        params.put("password", pass);
-        params.put("usertype", usertype); /// ADMIN, CUSTOMER, EMPLOYEE, MANAGER
+        if (uname.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(LoginActivity.this, "Fill Credentials", Toast.LENGTH_SHORT).show();
+        }
+        else {
 
-        try {
-            UserApi userapi = FactoryServiceAPI.GetUserApi();
-            Call<User> users = userapi.Login(params);
-            users.enqueue(new Callback<User>() {
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    // login succes if id >0
-                    user = response.body();
-                    if(user.getId()>0)
-                    {
-                        FactoryServiceAPI.currentUser = user; // keep current logged user to system
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("username", uname);
+            params.put("password", pass);
+            params.put("usertype", usertype); /// ADMIN, CUSTOMER, EMPLOYEE, MANAGER
 
-                        Intent myIntent = new Intent(LoginActivity.this,
-                                CustomerPage.class);
-                         startActivity(myIntent);
+            try {
+                UserApi userapi = FactoryServiceAPI.GetUserApi();
+                Call<User> users = userapi.Login(params);
+                users.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        // login succes if id >0
+                        user = response.body();
+                        if (user.getId() > 0) {
+                            FactoryServiceAPI.currentUser = user; // keep current logged user to system
+
+                            Intent myIntent = new Intent(LoginActivity.this,
+                                    CustomerPage.class);
+                            startActivity(myIntent);
+                            finish();
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                            email.setText("");
+                            password.setText("");
+                            email.requestFocus();
+                        }
                     }
-                    else
-                    {
-                        Toast.makeText(LoginActivity.this,"fill crediantels",Toast.LENGTH_SHORT).show();
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+
                     }
-                }
+                });
 
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-/*
-    public void users()
-    {
-        try {
-            UserApi userapi = factoryServiceAPI.GetUserApi();
-            Call<List<User>> users = userapi.Users();
-            users.enqueue(new Callback<List<User>>() {
-                @Override
-                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                    int i=0;
-                }
-
-                @Override
-                public void onFailure(Call<List<User>> call, Throwable t) {
-
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-*/
 
 }

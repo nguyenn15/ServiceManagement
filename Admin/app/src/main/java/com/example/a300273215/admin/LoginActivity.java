@@ -46,7 +46,14 @@ public class LoginActivity extends AppCompatActivity {
     {
         final String uname = email.getText().toString();
         final String pass = password.getText().toString();
-        final String usertype = "ADMIN"; // this app is for customer
+        final String usertype = "ADMIN"; // this app is for ADMIN
+
+
+        if (uname.isEmpty() || pass.isEmpty()) {
+            Toast.makeText(LoginActivity.this, "Fill Credentials", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("username", uname);
@@ -68,10 +75,14 @@ public class LoginActivity extends AppCompatActivity {
                         Intent myIntent = new Intent(LoginActivity.this,
                                 AdminHomePage.class);
                         startActivity(myIntent);
+                        finish();
                     }
                     else
                     {
-                        Toast.makeText(LoginActivity.this,"fill crediantels",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,"Invalid Username or Password!",Toast.LENGTH_SHORT).show();
+                        email.setText("");
+                        password.setText("");
+                        email.requestFocus();
                     }
                 }
 

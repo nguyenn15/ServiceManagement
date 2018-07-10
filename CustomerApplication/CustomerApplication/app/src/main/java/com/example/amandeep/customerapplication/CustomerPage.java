@@ -84,7 +84,6 @@ public class CustomerPage extends AppCompatActivity {
 
     }
 
-
     private void setupToolbarMenu() {
         mToolbar=(Toolbar)findViewById(R.id.toolbar);
         mToolbar.setTitle("Service");
