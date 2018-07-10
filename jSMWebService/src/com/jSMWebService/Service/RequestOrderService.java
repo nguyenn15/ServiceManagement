@@ -53,11 +53,11 @@ public class RequestOrderService {
    @GET 
    @Path("/Create") 
    @Produces(MediaType.APPLICATION_JSON) 
-   public Response  Create(
+   public RequestOrder  Create(
 	//	   @QueryParam("idRequest")int idRequest,
 	//	   @QueryParam("Date") java.util.Date Date ,
 		   @QueryParam("Area") double Area,
-		   @QueryParam("Medium") int Medium,
+		//   @QueryParam("Medium") int Medium,
 		   @QueryParam("NoOfDoors") int NoOfDoors,
 		   @QueryParam("EntryDoors") int Entry_Exit_Doors,
 		   @QueryParam("OpenWindows") int OpenWindows,
@@ -70,7 +70,7 @@ public class RequestOrderService {
 	//	   @QueryParam("idAdmin") int idAdmin
 		   )
    { 
-	   
+	   RequestOrder objRequestOrder=null;
 	   String message="";
 	   int idManager =0;
 	   int idAdmin =0;
@@ -79,20 +79,19 @@ public class RequestOrderService {
 	   System.out.println("Create request from user "+idCustomer);
 	   
 	 try {
-		   RequestOrder  obj= new RequestOrder(0 ,  Area,Medium,NoOfDoors,Entry_Exit_Doors,OpenWindows,OpenAreas,DoorBell,LocationOfService,Status,idCustomer,idManager,idAdmin);
+		   RequestOrder  obj= new RequestOrder(0 ,  Area,NoOfDoors,Entry_Exit_Doors,OpenWindows,OpenAreas,DoorBell,LocationOfService,Status,idCustomer,idManager,idAdmin);
 		   
-		   RequestOrderDao.Create(obj);
-		   message = "Created Request Order";
+		   objRequestOrder=RequestOrderDao.Create(obj);
+		  //message = "Created Request Order";
 	} catch (Exception e) {
 		// TODO: handle exception
 		System.out.println(e.getMessage());
 		
-		 message = e.getMessage();
+		// message = e.getMessage();
 		
 	}
-	 return Response
-			   .status(200)
-			   .entity(message).build();
+	// return Response			   .status(200)			   .entity(message).build();
+	 return objRequestOrder;
    }  
    
 }

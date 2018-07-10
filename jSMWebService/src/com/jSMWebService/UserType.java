@@ -9,8 +9,8 @@ public class UserType implements Serializable {
 	public class USERTYPE{
 		public static final int ADMIN=1;
 		public static final int MANAGER=2;
-		public static  final int CUSTOMER=3;
-		public static  final int EMPLOYEE=4;			
+		public static  final int CUSTOMER=4;
+		public static  final int EMPLOYEE=3;			
 	}
 	
 	private  int idUserType; // have to geta value from class USERTYPE
