@@ -28,7 +28,7 @@ public class RequestOrder implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date Date;
 	private double Area;
-	private int Medium;
+	
 	private int NoOfDoors;
 	private int Entry_Exit_Doors;
 	private int OpenWindows;
@@ -45,11 +45,11 @@ public class RequestOrder implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RequestOrder(int id, double area, int medium, int noofdoors, int entryexitdoors, int openwindows, double openareas, int doorbell, String locationservice, STATUS status, int idcustomer, int idmanager, int idadmin)
+	public RequestOrder(int id, double area,  int noofdoors, int entryexitdoors, int openwindows, double openareas, int doorbell, String locationservice, STATUS status, int idcustomer, int idmanager, int idadmin)
 	{
 		this.idRequest= id;
 		this.Area = area;
-		this.Medium= medium;
+	
 		this.NoOfDoors = noofdoors;
 		this.Entry_Exit_Doors= entryexitdoors;
 		this.OpenWindows = openwindows;
@@ -70,7 +70,7 @@ public class RequestOrder implements Serializable {
 	
 	public double getArea() { return this.Area; }
 	
-	public int getMedium() { return this.Medium; }
+	
 	
 	public int getNoOfDoors() {return this.NoOfDoors;}
 	public int getEntry_Exit_Doors() {return this.Entry_Exit_Doors;}	
@@ -91,7 +91,7 @@ public class RequestOrder implements Serializable {
 	
 	public void setArea(double area) {  this.Area = area; }
 	
-	public void setMedium(int medium) {  this.Medium = medium; }
+	
 	
 	public void setNoOfDoors(int doors) { this.NoOfDoors= doors;}
 	public void setEntry_Exit_Doors(int entries) { this.Entry_Exit_Doors = entries;}	

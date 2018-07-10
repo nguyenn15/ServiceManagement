@@ -62,12 +62,12 @@ public class UserDAO extends BaseDAO {
 		        "SELECT * " +
 		        "FROM User WHERE email = :email and password = :password and idUserType =:userType";
 		    Query query =con.createQuery(querystr)
-			        .addParameter("email", "admin")
-			        .addParameter("password", "1234")
+			        .addParameter("email", email)
+			        .addParameter("password", password)
 			        .addParameter("userType", userType);
 		    
 		    // debug print query string.
-		    System.out.println(query.toString() +"---"+ userType);
+		    System.out.println(query.toString() +"---"+ email +"---"+  password +"---"+ userType);
 		    
 		    return 	query.executeAndFetchFirst(User.class);
 		  }

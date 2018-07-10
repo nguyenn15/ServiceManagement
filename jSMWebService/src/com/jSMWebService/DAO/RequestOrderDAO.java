@@ -1,5 +1,6 @@
 package com.jSMWebService.DAO;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,8 @@ public class RequestOrderDAO extends BaseDAO {
 			    final String query =
 			        "SELECT * " +
 			        "FROM RequestOrder WHERE idRequest = :RequestOrderId";
-
+			    System.out.println(query.toString() +"---"+ RequestOrderId );
+			    
 			    return con.createQuery(query)
 			        .addParameter("RequestOrderId", RequestOrderId)
 			        .executeAndFetchFirst(RequestOrder.class);
@@ -93,19 +95,18 @@ public class RequestOrderDAO extends BaseDAO {
 	   }
 
 	   
-	   public void Create(RequestOrder requestorder) {
+	   public RequestOrder Create(RequestOrder requestorder) {
 		   
 		   
 		   String insertSql = 
-					" INSERT INTO `requestorder` (`Date`, `Area`, `Medium`, `NoOfDoors`, `Entry_Exit_Doors`, `OpenWindows`, `OpenAreas`, `DoorBell`, `LocationOfService`, `Status`, `idCustomer`) "
-					+" VALUES (  :Date, :Area, :Medium, :NoOfDoors, :Entry_Exit_Doors, :OpenWindows, :OpenAreas, :DoorBell, :LocationOfService, :Status, :idCustomer )" ; 
-					
+					" INSERT INTO `requestorder` (`Date`, `Area`, `NoOfDoors`, `Entry_Exit_Doors`, `OpenWindows`, `OpenAreas`, `DoorBell`, `LocationOfService`, `Status`, `idCustomer`) "
+					+" VALUES (  :Date, :Area, :NoOfDoors, :Entry_Exit_Doors, :OpenWindows, :OpenAreas, :DoorBell, :LocationOfService, :Status, :idCustomer )" ; 
+		   		BigInteger insertedId;
 				try (Connection con = sql2o.open()) {
-				    con.createQuery(insertSql)
+					insertedId =  (BigInteger)con.createQuery(insertSql, true)
 				    		//.addParameter("idRequest",requestorder.getIdRequest())
 				    		.addParameter("Date",requestorder.getDate())
-				    		.addParameter("Area",requestorder.getArea())
-				    		.addParameter("Medium",requestorder.getMedium())
+				    		.addParameter("Area",requestorder.getArea())				    		
 				    		.addParameter("NoOfDoors",requestorder.getNoOfDoors())
 				    		.addParameter("Entry_Exit_Doors",requestorder.getEntry_Exit_Doors())
 				    		.addParameter("OpenWindows",requestorder.getOpenWindows())
@@ -114,16 +115,20 @@ public class RequestOrderDAO extends BaseDAO {
 				    		.addParameter("LocationOfService",requestorder.getLocationOfService())
 				    		.addParameter("Status",requestorder.getStatus())
 				    		.addParameter("idCustomer",requestorder.getIdCustomer())
-					    .executeUpdate();
+					    .executeUpdate().getKey();
 				}
-			
+				//get the newest row.
+				System.out.println("Create request Order " +"---"+ insertedId );
+				
+				return selectRequestOrderByID(insertedId.intValue());
+				
 	   }
 	   
 	   public void Update(RequestOrder requestorder) {
 		   
 		   String updateSql = "update requestorder"
 		   		+ " set "
-		   		+ " `Date`=:Date , `Area`=:Area , `Medium`=:Medium , `NoOfDoors`=:NoOfDoors ,"
+		   		+ " `Date`=:Date , `Area`=:Area , `NoOfDoors`=:NoOfDoors ,"
 		   		+ " `Entry_Exit_Doors`=:Entry_Exit_Doors , `OpenWindows`=:OpenWindows , `OpenAreas`=:OpenAreas, `DoorBell`=:DoorBell , `LocationOfService`=:LocationOfService , `Status`=:Status ,"
 		   		+ " `idCustomer` =:idCustomer, `idManager` =:idManager, `idAdmin` =:idAdmin`"  
 		   		+ " where idRequest = :idRequest";
@@ -133,7 +138,7 @@ public class RequestOrderDAO extends BaseDAO {
 				    		.addParameter("idRequest",requestorder.getIdRequest())
 				    		.addParameter("Date",requestorder.getDate())
 				    		.addParameter("Area",requestorder.getArea())
-				    		.addParameter("Medium",requestorder.getMedium())
+				    		
 				    		.addParameter("NoOfDoors",requestorder.getNoOfDoors())
 				    		.addParameter("Entry_Exit_Doors",requestorder.getEntry_Exit_Doors())
 				    		.addParameter("OpenWindows",requestorder.getOpenWindows())
