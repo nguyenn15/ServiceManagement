@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +89,7 @@ public class AdminHomePage extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        adapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), new ArrayList<RequestOrder>());
+        adapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -115,36 +116,4 @@ public class AdminHomePage extends AppCompatActivity {
         mToolbar.setTitle("REQUESTS");
     }
 
-
-    // get all request order in table
-    public void RequestOrders()
-    {
-        try {
-            RequestOrderApi requestorderApi = FactoryServiceAPI.GetRequesetOrderApi();
-            Call<List<RequestOrder>> requestorders = requestorderApi.RequestOrders();
-            requestorders.enqueue(new Callback<List<RequestOrder>>() {
-                @Override
-                public void onResponse(Call<List<RequestOrder>> call, Response<List<RequestOrder>> response) {
-                    List<RequestOrder> requestOrders = response.body();
-                    /// add to list here
-                    SetDataSourceFragment1(requestOrders);
-
-                }
-
-                @Override
-                public void onFailure(Call<List<RequestOrder>> call, Throwable t) {
-
-                }
-            });
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void SetDataSourceFragment1(List<RequestOrder> requestOrders) {
-        // get fragment 1
-
-
-    }
 }

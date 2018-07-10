@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
 
     Button login;
     EditText email,password;
-    List<String> loginManager=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +32,9 @@ public class LoginActivity extends AppCompatActivity {
         login=(Button)findViewById(R.id.login);
         email=(EditText)findViewById(R.id.userId);
         password=(EditText)findViewById(R.id.password);
-        loginManager.add("raman");
-        loginManager.add("12345");
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Login(); // handle login
             }
         });
@@ -51,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     {
         final String uname = email.getText().toString();
         final String pass = password.getText().toString();
-        final String usertype = "CUSTOMER"; // this app is for customer
+        final String usertype = "ADMIN"; // this app is for customer
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("username", uname);

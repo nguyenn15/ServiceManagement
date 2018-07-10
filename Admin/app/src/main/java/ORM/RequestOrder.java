@@ -54,9 +54,6 @@ public class RequestOrder implements Serializable {
 	@SerializedName("locationOfService")
 	@Expose
 	private String locationOfService;
-	@SerializedName("medium")
-	@Expose
-	private Integer medium;
 	@SerializedName("noOfDoors")
 	@Expose
 	private Integer noOfDoors;
@@ -141,15 +138,6 @@ public class RequestOrder implements Serializable {
 	public void setLocationOfService(String locationOfService) {
 		this.locationOfService = locationOfService;
 	}
-
-	public Integer getMedium() {
-		return medium;
-	}
-
-	public void setMedium(Integer medium) {
-		this.medium = medium;
-	}
-
 	public Integer getNoOfDoors() {
 		return noOfDoors;
 	}
