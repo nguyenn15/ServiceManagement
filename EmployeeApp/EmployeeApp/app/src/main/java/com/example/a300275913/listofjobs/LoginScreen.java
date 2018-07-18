@@ -11,6 +11,13 @@ package com.example.a300275913.listofjobs;
         import java.util.HashMap;
         import java.util.Map;
 
+        import ORM.User;
+        import Service.FactoryServiceAPI;
+        import Service.UserApi;
+        import retrofit2.Call;
+        import retrofit2.Callback;
+        import retrofit2.Response;
+
 public class LoginScreen extends AppCompatActivity {
     Button login;
     EditText email,password;
@@ -34,19 +41,55 @@ public class LoginScreen extends AppCompatActivity {
     {
         final String uname = email.getText().toString();
         final String pass = password.getText().toString();
-
+        final String usertype = "ADMIN"; // this app is for ADMIN
 
 
         if (uname.isEmpty() || pass.isEmpty()) {
             Toast.makeText(LoginScreen.this, "Fill Credentials", Toast.LENGTH_SHORT).show();
             return;
         }
-        else {
-            Intent intent = new Intent(LoginScreen.this, MainActivity.class);
-            startActivity(intent);
-        }
 
-    }
-}
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("username", uname);
+        params.put("password", pass);
+        params.put("usertype", usertype); /// ADMIN, CUSTOMER, EMPLOYEE, MANAGER
+
+        try {
+            UserApi userapi = FactoryServiceAPI.GetUserApi();
+            Call<User> users = userapi.Login(params);
+            users.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    // login succes if id >0
+                    User user = response.body();
+                    if(user.getId()>0)
+                    {
+                        FactoryServiceAPI.currentUser = user; // keep current logged user to system
+
+                        Intent myIntent = new Intent(LoginScreen.this,
+                                MainActivity.class);
+                        startActivity(myIntent);
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(LoginScreen.this,"Invalid Username or Password!",Toast.LENGTH_SHORT).show();
+                        email.setText("");
+                        password.setText("");
+                        email.requestFocus();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    int i=0;
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+}}
 
 
