@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Job_Details"></activity>
+        <activity android:name=".Job_Details" />
+        <activity android:name=".LoginScreen" />
+        <activity android:name=".MainPage"></activity>
     </application>
 
 </manifest>
