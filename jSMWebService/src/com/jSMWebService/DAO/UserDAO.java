@@ -9,15 +9,22 @@ import org.sql2o.Query;
 import com.jSMWebService.*;
 import com.jSMWebService.UserType.USERTYPE;
 
-
+/**
+ * This is the DAO class for access table User in Db
+ * @author segroup1
+ *
+ */
 public class UserDAO extends BaseDAO { 
-	
+	/**
+	 * Get all users from table user
+	 * @return
+	 */
    public List<User> getAllUsers(){ 
   
 	   String sql =
 		        "SELECT * " +
 		        "FROM User";
-
+	   
 		    try(Connection con = sql2o.open()) {
 		        return con.createQuery(sql).executeAndFetch(User.class);
 		    }
@@ -25,7 +32,11 @@ public class UserDAO extends BaseDAO {
      
    } 
    
-   
+   /**
+    * Get user by type of user: ADMIN, MAnager, employee, customer
+    * @param userType
+    * @return
+    */
    public List<User> selectUsersByType(USERTYPE userType){
 	   String sql =
 		        "SELECT * " +
@@ -40,6 +51,11 @@ public class UserDAO extends BaseDAO {
 	      
    } 
    
+   /**
+    * Selec User by ID
+    * @param userId
+    * @return
+    */
    public User selectUserByID(int userId)
    {
 	 
@@ -54,6 +70,14 @@ public class UserDAO extends BaseDAO {
 		  }
    }
    
+   
+   /**
+    * Get User For login info
+    * @param email
+    * @param password
+    * @param userType
+    * @return
+    */
    public User selectUserForLogin(String email, String password, int userType)
    {
 	 

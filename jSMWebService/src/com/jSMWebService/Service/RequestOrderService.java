@@ -17,6 +17,10 @@ import com.jSMWebService.DAO.RequestOrderDAO;
 
 public class RequestOrderService {  
 	RequestOrderDAO RequestOrderDao = new RequestOrderDAO();  
+	/**
+	 * API: get all request order
+	 * @return
+	 */
    @GET 
    @Path("/RequestOrders") 
    @Produces(MediaType.APPLICATION_JSON) 
@@ -24,6 +28,11 @@ public class RequestOrderService {
       return RequestOrderDao.getAllRequestOrders(); 
    }  
    
+   /**
+    * API: get a request order by ID
+    * @param idRequest
+    * @return
+    */
    @GET 
    @Path("/ByID") 
    @Produces(MediaType.APPLICATION_JSON) 
@@ -35,6 +44,11 @@ public class RequestOrderService {
 	   return obj;
    }  
    
+   /**
+    * API: gaet RO by customer ID 
+    * @param idCustomer
+    * @return
+    */
    @GET 
    @Path("/ByCustomerID") 
    @Produces(MediaType.APPLICATION_JSON) 
@@ -46,7 +60,8 @@ public class RequestOrderService {
    }  
    
    
-/* Create request order
+   /**
+    * Create a request 
     * @param idRequest
     * @return
     */
@@ -54,20 +69,18 @@ public class RequestOrderService {
    @Path("/Create") 
    @Produces(MediaType.APPLICATION_JSON) 
    public RequestOrder  Create(
-	//	   @QueryParam("idRequest")int idRequest,
-	//	   @QueryParam("Date") java.util.Date Date ,
+
 		   @QueryParam("Area") double Area,
-		//   @QueryParam("Medium") int Medium,
+
 		   @QueryParam("NoOfDoors") int NoOfDoors,
 		   @QueryParam("EntryDoors") int Entry_Exit_Doors,
 		   @QueryParam("OpenWindows") int OpenWindows,
 		   @QueryParam("OpenAreas") double OpenAreas,
 		   @QueryParam("DoorBell") int DoorBell,
 		   @QueryParam("LocationOfService") String LocationOfService,
-	//	   @QueryParam("Status") RequestOrder.STATUS Status,
+
 		   @QueryParam("idCustomer") int idCustomer
-	//	   @QueryParam("idManager") int idManager,
-	//	   @QueryParam("idAdmin") int idAdmin
+
 		   )
    { 
 	   RequestOrder objRequestOrder=null;
@@ -82,15 +95,70 @@ public class RequestOrderService {
 		   RequestOrder  obj= new RequestOrder(0 ,  Area,NoOfDoors,Entry_Exit_Doors,OpenWindows,OpenAreas,DoorBell,LocationOfService,Status,idCustomer,idManager,idAdmin);
 		   
 		   objRequestOrder=RequestOrderDao.Create(obj);
-		  //message = "Created Request Order";
+		
 	} catch (Exception e) {
 		// TODO: handle exception
 		System.out.println(e.getMessage());
-		
-		// message = e.getMessage();
+
 		
 	}
 	// return Response			   .status(200)			   .entity(message).build();
+	 return objRequestOrder;
+   }  
+ 
+   /**
+    * Update a RequestOrder:
+    * 
+    * @param idRequest : key do not change 
+    * @param Area
+    * @param NoOfDoors
+    * @param Entry_Exit_Doors
+    * @param OpenWindows
+    * @param OpenAreas
+    * @param DoorBell
+    * @param LocationOfService
+    * @param Status
+    * @param idCustomer
+    * @param idManager
+    * @param idAdmin
+    * @return
+    */
+   @GET 
+   @Path("/Update") 
+   @Produces(MediaType.APPLICATION_JSON) 
+   public RequestOrder  Update(
+		   @QueryParam("idRequest")int idRequest,
+		  // @QueryParam("Date") java.util.Date Date , // the create date time can not be changed
+		   @QueryParam("Area") double Area,
+		   //@QueryParam("Medium") int Medium,
+		   @QueryParam("NoOfDoors") int NoOfDoors,
+		   @QueryParam("EntryDoors") int Entry_Exit_Doors,
+		   @QueryParam("OpenWindows") int OpenWindows,
+		   @QueryParam("OpenAreas") double OpenAreas,
+		   @QueryParam("DoorBell") int DoorBell,
+		   @QueryParam("LocationOfService") String LocationOfService,
+		   @QueryParam("Status") int Status,
+		   @QueryParam("idCustomer") int idCustomer,
+		   @QueryParam("idManager") int idManager,
+		   @QueryParam("idAdmin") int idAdmin
+		   )
+   { 
+	   RequestOrder objRequestOrder=null;
+	   String message="";
+	
+	   RequestOrder.STATUS rStatus = STATUS.FromInt(Status);
+	   
+	   System.out.println("Create request from user "+idCustomer);
+	   
+	 try {
+		   RequestOrder  obj= new RequestOrder(0 ,  Area,NoOfDoors,Entry_Exit_Doors,OpenWindows,OpenAreas,DoorBell,LocationOfService,rStatus,idCustomer,idManager,idAdmin);
+		   
+		   objRequestOrder=RequestOrderDao.Update(obj);
+		  
+	} catch (Exception e) {
+		// TODO: handle exception
+		System.out.println(e.getMessage());
+	} 
 	 return objRequestOrder;
    }  
    

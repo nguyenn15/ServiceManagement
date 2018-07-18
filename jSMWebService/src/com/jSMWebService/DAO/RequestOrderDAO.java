@@ -8,9 +8,17 @@ import org.sql2o.Connection;
 
 import com.jSMWebService.RequestOrder;
 import com.jSMWebService.RequestOrder.STATUS;
-
+/**
+ * This is the DAO class for accessing RequestOrder table in DB
+ * @author segroup1
+ *
+ */
 public class RequestOrderDAO extends BaseDAO {
 
+	/**
+	 * Get All requestorders from table RequestOrder
+	 * @return
+	 */
 	 public List<RequestOrder> getAllRequestOrders(){ 
 		  
 		 String sql =
@@ -22,7 +30,12 @@ public class RequestOrderDAO extends BaseDAO {
 			    }
 		      
 	   } 
-	   
+
+	 /**
+	  * Get Request Order by ID
+	  * @param RequestOrderId
+	  * @return
+	  */
 	   public RequestOrder selectRequestOrderByID(int RequestOrderId)
 	   {
 		 
@@ -38,6 +51,11 @@ public class RequestOrderDAO extends BaseDAO {
 			  }
 	   }
 	   
+	   /**
+	    * Get Request Order by customerID
+	    * @param CustomerID
+	    * @return
+	    */
 	   public List<RequestOrder> selectRequestOrderByCustomerID(int CustomerID)
 	   {
 		 
@@ -52,6 +70,11 @@ public class RequestOrderDAO extends BaseDAO {
 			  }
 	   }
 	   
+	   /**
+	    * Get Request Order by Manager ID
+	    * @param ManagerID
+	    * @return
+	    */
 	   public List<RequestOrder> selectRequestOrderByManagerID(int ManagerID)
 	   {
 		 
@@ -65,7 +88,11 @@ public class RequestOrderDAO extends BaseDAO {
 			        .executeAndFetch(RequestOrder.class);
 			  }
 	   }
-	   
+	   /**
+	    * Get RequestOrder by AdminID 
+	    * @param AdminID
+	    * @return
+	    */
 	   public List<RequestOrder> selectRequestOrderByAdminID(int AdminID)
 	   {
 		 
@@ -80,6 +107,11 @@ public class RequestOrderDAO extends BaseDAO {
 			  }
 	   }
 
+	   /**
+	    * Get Request by Status
+	    * @param status
+	    * @return
+	    */
 	   public List<RequestOrder> selectRequestOrderByStatus(STATUS status)
 	   {
 		 
@@ -94,7 +126,11 @@ public class RequestOrderDAO extends BaseDAO {
 			  }
 	   }
 
-	   
+	   /**
+	    * Create an new Request Order
+	    * @param requestorder
+	    * @return
+	    */
 	   public RequestOrder Create(RequestOrder requestorder) {
 		   
 		   
@@ -124,7 +160,12 @@ public class RequestOrderDAO extends BaseDAO {
 				
 	   }
 	   
-	   public void Update(RequestOrder requestorder) {
+	   /**
+	    * Update the information of a request order
+	    * @param requestorder
+	 * @return 
+	    */
+	   public RequestOrder Update(RequestOrder requestorder) {
 		   
 		   String updateSql = "update requestorder"
 		   		+ " set "
@@ -151,6 +192,10 @@ public class RequestOrderDAO extends BaseDAO {
 				    		.addParameter("idAdmin",requestorder.getIdAdmin())
 					    .executeUpdate();
 				}
+				//get the newest row.
+				System.out.println("Update request Order " +"---"+ requestorder.getIdRequest() );
+				
+				return selectRequestOrderByID(requestorder.getIdRequest());
 			
 	   }
 	   
