@@ -16,47 +16,53 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Toolbar toolbar;
+
     ListView listview;
-    private DrawerLayout dl;
-    private ActionBarDrawerToggle abdt;
+    DrawerLayout drawerLayout;
+    NavigationView navigation;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dl = (DrawerLayout) findViewById(R.id.dl);
-        abdt = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
-        abdt.setDrawerIndicatorEnabled(true);
-        dl.addDrawerListener(abdt);
-        abdt.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-       final NavigationView nav_view = (NavigationView) findViewById(R.id.nav_view);
-        nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        setupToolbarMenu();
+
+        ActionBarDrawerToggle drawerToggle=new ActionBarDrawerToggle(this, drawerLayout, mToolbar, R.string.drawerOpen, R.string.drawerClose);
+
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        navigation = (NavigationView)findViewById(R.id.nav_view);
+        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.home) {
-                    Toast.makeText(MainActivity.this, "MyProfile", Toast.LENGTH_SHORT).show();
-                } else if (id == R.id.viewjobs) {
-                    Toast.makeText(MainActivity.this, "MyProfile", Toast.LENGTH_SHORT).show();
-                }
-                if (id == R.id.Profile) {
-                    Toast.makeText(MainActivity.this, "MyProfile", Toast.LENGTH_SHORT).show();
-                }
-                if (id == R.id.logout) {
-                    Toast.makeText(MainActivity.this, "logout", Toast.LENGTH_SHORT).show();
-                }
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.home:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                        break;
+                    case R.id.Profile:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                       // startActivity(new Intent(MainActivity.this, EditProfile.class));
 
+                        break;
 
-                return true;
+                    case R.id.logout:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                        startActivity(new Intent(MainActivity.this, LoginScreen.class));
+                        break;
+                }
+                return false;
             }
         });
 
-
-      toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getResources().getString(R.string.app_name));
         listview = (ListView) findViewById(R.id.listview);
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1,
@@ -80,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void setupToolbarMenu() {
+        mToolbar=(Toolbar)findViewById(R.id.toolbar);
+        mToolbar.setTitle("ORDERS");
     }
 
 

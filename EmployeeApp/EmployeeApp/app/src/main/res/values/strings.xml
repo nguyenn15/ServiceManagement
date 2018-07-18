@@ -3,6 +3,9 @@
    <string name="Open">List of Jobs</string>
     <string name="Close">List of Jobs</string>
 
+    <string name="drawerOpen">Open</string>
+    <string name="drawerClose">Close</string>
+
     <string-array name="JobNumber">
         <item> Job 1 </item>
         <item> Job 2 </item>
