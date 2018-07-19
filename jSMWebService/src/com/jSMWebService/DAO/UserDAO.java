@@ -7,7 +7,6 @@ import org.sql2o.Connection;
 import org.sql2o.Query;
 
 import com.jSMWebService.*;
-import com.jSMWebService.UserType.USERTYPE;
 
 /**
  * This is the DAO class for access table User in Db
@@ -37,7 +36,7 @@ public class UserDAO extends BaseDAO {
     * @param userType
     * @return
     */
-   public List<User> selectUsersByType(USERTYPE userType){
+   public List<User> selectUsersByType(UserType.USERTYPEID userType){
 	   String sql =
 		        "SELECT * " +
 		        "FROM User " + 
@@ -45,7 +44,7 @@ public class UserDAO extends BaseDAO {
 
 		    try(Connection con = sql2o.open()) {
 		        return con.createQuery(sql)
-		        		.addParameter("userType", userType)
+		        		.addParameter("userType", userType.getValue())
 		        		.executeAndFetch(User.class);
 		    }
 	      

@@ -12,13 +12,13 @@ import javax.ws.rs.core.MediaType;
 import com.jSMWebService.User;
 import com.jSMWebService.UserType;
 import com.jSMWebService.DAO.UserDAO;
-import com.jSMWebService.UserType.USERTYPE;  
+  
 @Path("/UserService") 
 
 public class UserService {  
 	UserDAO userDao = new UserDAO();  
    @GET 
-   @Path("/users") 
+   @Path("/all") 
    @Produces(MediaType.APPLICATION_JSON) 
    public List<User> getUsers(){ 
       return userDao.getAllUsers(); 
@@ -34,9 +34,9 @@ public class UserService {
 		   )
    { 
 	   
-	  int utype = UserType.FromString(usertype);	   
+	  int utypeid = UserType.USERTYPEID.FromString(usertype).getValue();	   
 	  
-	  User user= userDao.selectUserForLogin(username, password, utype); 
+	  User user= userDao.selectUserForLogin(username, password, utypeid); 
 	  
 	  if(user ==null)
 	  {
@@ -47,5 +47,32 @@ public class UserService {
       return user;
    }  
    
+   
+   @GET 
+   @Path("/byID") 
+   @Produces(MediaType.APPLICATION_JSON) 
+   public User getById(
+		   @QueryParam("idUser") int idUser
+		   )
+   {  
+	  User user= userDao.selectUserByID(idUser); 	 
+      return user;
+   }  
+   /**
+    * Get User by user type id
+    * use enum in UserTYpe class for convert value to int
+    * @param idUserType     
+    * @return
+    */
+   @GET 
+   @Path("/byUserType") 
+   @Produces(MediaType.APPLICATION_JSON) 
+   public List<User> getByUserType(
+		   @QueryParam("idUserType") int idUserType
+		   )
+   {  
+	   UserType.USERTYPEID typeid = UserType.USERTYPEID.FromInt(idUserType);
+	  return userDao.selectUsersByType(typeid); 	       
+   }  
    
 }

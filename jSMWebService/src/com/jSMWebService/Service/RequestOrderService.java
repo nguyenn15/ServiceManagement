@@ -59,9 +59,25 @@ public class RequestOrderService {
       return RequestOrderDao.selectRequestOrderByCustomerID(idCustomer);
    }  
    
+   /**
+    * Get RO by status
+    * @param Status
+    * @return
+   */
+  @GET 
+  @Path("/ByStatus") 
+  @Produces(MediaType.APPLICATION_JSON) 
+  public List<RequestOrder> getByStatus(
+		   @QueryParam("Status") int Status
+		   )
+  { 
+	 RequestOrder.STATUS rStatus = STATUS.FromInt(Status);
+	 
+     return RequestOrderDao.selectRequestOrderByStatus(rStatus);
+  }    
    
    /**
-    * Create a request 
+    *API: Create a request 
     * @param idRequest
     * @return
     */
@@ -107,7 +123,7 @@ public class RequestOrderService {
    }  
  
    /**
-    * Update a RequestOrder:
+    *API: Update a RequestOrder:
     * 
     * @param idRequest : key do not change 
     * @param Area
@@ -144,7 +160,7 @@ public class RequestOrderService {
 		   )
    { 
 	   RequestOrder objRequestOrder=null;
-	   String message="";
+
 	
 	   RequestOrder.STATUS rStatus = STATUS.FromInt(Status);
 	   
