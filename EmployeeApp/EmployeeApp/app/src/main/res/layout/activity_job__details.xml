@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="0dp"
@@ -25,5 +26,15 @@ android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/Timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="107dp"
+        android:layout_marginEnd="66dp"
+        android:text="Click here to record job time" />
 
 </RelativeLayout>

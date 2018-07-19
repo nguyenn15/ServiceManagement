@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -11,11 +12,14 @@ public class Job_Details extends AppCompatActivity {
     Toolbar mtoolbar;
     TextView details;
     String StrData;
+   Button timer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job__details);
+
 
 
         mtoolbar = (Toolbar) findViewById(R.id.toolbar2);

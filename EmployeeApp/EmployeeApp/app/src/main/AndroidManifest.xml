@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".Job_Details" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".EditProfile" />
+        <activity android:name=".Timer"></activity>
     </application>
 
 </manifest>

@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class EditProfile extends AppCompatActivity {
-    private Toolbar mToolbar;
+   private Toolbar mToolbar;
     DrawerLayout drawerLayout;
     NavigationView navigation;
 
@@ -32,12 +32,6 @@ public class EditProfile extends AppCompatActivity {
         password=(EditText)findViewById(R.id.passwordEditText);
         update=(Button)findViewById(R.id.editProfile);
 
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateData();
-            }
-        });
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         setupToolbarMenu();
@@ -51,6 +45,12 @@ public class EditProfile extends AppCompatActivity {
         navigation = (NavigationView) findViewById(R.id.nav_view);
 
 
+       /* update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateData();
+            }
+        });*/
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
