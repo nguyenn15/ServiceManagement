@@ -30,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminHomePage extends AppCompatActivity {
+public class  AdminHomePage extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigation;

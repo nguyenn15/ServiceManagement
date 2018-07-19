@@ -4,128 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@android:color/holo_orange_dark"
     tools:context="com.example.a300275913.listofjobs.EditProfile">
 
-<!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
-<LinearLayout
+    <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+    <LinearLayout
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </android.support.v7.widget.Toolbar>
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:layout_margin="20dp"
-        >
-
-        <TextView
-            android:id="@+id/firstName"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="First Name"
-            />
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <EditText
-            android:id="@+id/firstNameEditText"
-            android:layout_width="wrap_content"
+        </android.support.v7.widget.Toolbar>
+
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="First Name"
-            />
+            android:layout_margin="20dp"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:columnCount="2">
+
+            <TextView
+                android:id="@+id/firstName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Name" />
+
+            <EditText
+                android:id="@+id/firstNameEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="First Name"
+                android:inputType="textPersonName" />
 
 
-        <TextView
-            android:id="@+id/lastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Last Name"
+            <TextView
+                android:id="@+id/lastName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Name"
 
-            />
+                />
 
-        <EditText
-            android:id="@+id/latNameEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Last Name"
-            />
-
-
-        <TextView
-            android:id="@+id/userId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="User Id "
-            />
-
-        <EditText
-            android:id="@+id/userIdEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:hint="Email"
-            />
-
-        <TextView
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            />
+            <EditText
+                android:id="@+id/latNameEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Last Name"
+                android:inputType="textPersonName" />
 
 
-        <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
+            <TextView
+                android:id="@+id/userId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Id " />
 
-            android:hint="password"
-            />
+            <EditText
+                android:id="@+id/userIdEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
 
-
-
-        <Button
-            android:id="@+id/editProfile"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="Update"
-            android:layout_marginTop="20dp"
-            />
-
-
-    </GridLayout>
+            <TextView
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password" />
 
 
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="password"
 
-</LinearLayout>
+                android:inputType="textPersonName" />
 
-<!-- Container for contents of drawer - use NavigationView to make configuration easier -->
-<android.support.design.widget.NavigationView
-    android:id="@+id/nav_view"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    android:fitsSystemWindows="true"
-    app:menu="@menu/navigation_menu"
-    app:headerLayout="@layout/navigation_header"/>
+
+            <Button
+                android:id="@+id/editProfile"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Update" />
+
+
+        </GridLayout>
+
+
+    </LinearLayout>
+
+    <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/navigation_menu" />
 
 </android.support.v4.widget.DrawerLayout>
 
