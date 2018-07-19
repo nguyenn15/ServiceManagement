@@ -50,7 +50,12 @@ public class MainActivity extends AppCompatActivity {
                         //Do some thing here
                         // add navigation drawer item onclick method here
                        // startActivity(new Intent(MainActivity.this, EditProfile.class));
-
+                        startActivity(new Intent(MainActivity.this, EditProfile.class));
+                        break;
+                    case R.id.viewjobs:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
                         break;
 
                     case R.id.logout:
