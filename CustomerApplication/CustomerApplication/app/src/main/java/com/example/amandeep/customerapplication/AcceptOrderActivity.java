@@ -12,10 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import Model.ListItem;
+import ORM.RequestResponse;
+
 public class AcceptOrderActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     DrawerLayout drawerLayout;
     NavigationView navigation;
+
+    private RequestResponse quotes;; //quote details
 
     TextView quote;
     Button send;
@@ -39,8 +44,6 @@ public class AcceptOrderActivity extends AppCompatActivity {
 
         setupToolbarMenu();
 
-        String s = getIntent().getStringExtra("accepted request");
-        quote.setText(s); //get request details using request id and display in text view
 
 
         ActionBarDrawerToggle drawerToggle=new ActionBarDrawerToggle
@@ -82,7 +85,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+setData();
 
     }
 
@@ -90,6 +93,18 @@ public class AcceptOrderActivity extends AppCompatActivity {
         mToolbar=(Toolbar)findViewById(R.id.toolbar);
         mToolbar.setTitle("Orders");
 
+
+    }
+
+    public void setData()
+    {
+        int s = getIntent().getIntExtra("requestId",0);
+       //get request details using request id and display in text view
+
+        quotes=new RequestResponse(1,2,3,
+                4,5,23, RequestResponse.STATUS.ACCEPTED,s);
+
+        quote.setText("Details Of Quote "+quotes.getStatus()+quotes.getCableBundle()+quotes.getDoorBell());
 
     }
 }

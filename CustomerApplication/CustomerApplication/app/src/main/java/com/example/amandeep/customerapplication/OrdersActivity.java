@@ -89,6 +89,7 @@ setRecyclerView();
 
     public void addOrders()
     {
+        //TOdO HERE GET Orders from database and add to
         int id=1;
         orders.add(new Order(id,"first","pending"));
         orders.add(new Order(id+1,"second","approved"));
