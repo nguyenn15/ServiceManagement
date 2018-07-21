@@ -11,6 +11,11 @@ import retrofit2.http.QueryMap;
 
 public interface RequestOrderApi {
 
-    @GET("RequestOrderService/RequestOrders")
+    @GET("RequestOrderService/all")
     Call<List<RequestOrder>> RequestOrders(); // get all RequestOrders for testing only
+
+    @GET("RequestOrderService/byStatus")
+    Call<List<RequestOrder>> byStatus(@QueryMap Map<String, String> params); // get all RequestOrders for testing only
+
+
 }

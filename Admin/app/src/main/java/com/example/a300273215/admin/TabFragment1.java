@@ -17,7 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ORM.RequestOrder;
 import Service.FactoryServiceAPI;
@@ -73,7 +75,14 @@ public class TabFragment1 extends Fragment {
 
         try {
             RequestOrderApi requestorderApi = FactoryServiceAPI.GetRequesetOrderApi();
-            Call<List<RequestOrder>> requestorders = requestorderApi.RequestOrders();
+//            Call<List<RequestOrder>> requestorders = requestorderApi.RequestOrders();
+///-----------------------
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("Status", RequestOrder.STATUS.ACCEPTED.getValue()+"");
+
+            Call<List<RequestOrder>> requestorders = requestorderApi.byStatus(params);
+
+
             requestorders.enqueue(new Callback<List<RequestOrder>>() {
                 @Override
                 public void onResponse(Call<List<RequestOrder>> call, Response<List<RequestOrder>> response) {
