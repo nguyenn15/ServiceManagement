@@ -10,7 +10,7 @@ import org.sql2o.Sql2o;
  */
 public class BaseDAO {
 	// configuaration information for connection to mysql server
-	private static String Conn="jdbc:mysql://localhost:3306/jsmwebservice";
+	private static String Conn="jdbc:mysql://localhost:3306/jsmwebservice?useSSL=false";
 	private static String Username="root";
 	private static String Password="123456";
 	// connection object 

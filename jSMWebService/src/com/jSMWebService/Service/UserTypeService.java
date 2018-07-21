@@ -16,7 +16,7 @@ import com.jSMWebService.DAO.UserTypeDAO;
 @Path("/UserTypeService") 
 
 public class UserTypeService {  
-	UserTypeDAO userDao = new UserTypeDAO();
+	UserTypeDAO userTypeDao = new UserTypeDAO();
 	/**
 	 * Get all User Type
 	 * @return
@@ -25,17 +25,41 @@ public class UserTypeService {
    @Path("/all") 
    @Produces(MediaType.APPLICATION_JSON) 
    public List<UserType> getAll(){ 
-      return userDao.getAll(); 
+      return userTypeDao.getAll(); 
    }  
    
+   /**
+    * get user type by id
+    * @param idUserType
+    * @return
+    */
    @GET 
-   @Path("/byID") 
+   @Path("/byId") 
    @Produces(MediaType.APPLICATION_JSON) 
    public UserType getByID( 
 		   @QueryParam("idUserType") int idUserType
 		   ){ 
-      return userDao.getById(idUserType); 
+      return userTypeDao.getById(idUserType); 
    }  
   
+   /**
+    * Update Service
+    * @param idUserType
+    * @param UserType
+    * @return
+    */
+   @GET 
+   @Path("/update") 
+   @Produces(MediaType.APPLICATION_JSON) 
+   public UserType update( 
+		   @QueryParam("idUserType") int idUserType,
+		   @QueryParam("UserType") String UserType
+		   ){ 
+	   
+	   UserType utype = new UserType();
+	   utype.setType(UserType);
+	   
+      return userTypeDao.Update(utype); 
+   }  
    
 }

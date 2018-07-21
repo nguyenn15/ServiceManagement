@@ -47,9 +47,13 @@ public class UserService {
       return user;
    }  
    
-   
+   /**
+    * Get User by ID
+    * @param idUser
+    * @return
+    */
    @GET 
-   @Path("/byID") 
+   @Path("/byId") 
    @Produces(MediaType.APPLICATION_JSON) 
    public User getById(
 		   @QueryParam("idUser") int idUser
@@ -75,4 +79,79 @@ public class UserService {
 	  return userDao.selectUsersByType(typeid); 	       
    }  
    
+
+   /**
+    * 
+    * @param idUser
+    * @param Password
+    * @param Email
+    * @param idUserType
+    * @param Gender
+    * @param Address
+    * @param Fone
+    * @param Name
+    * @return
+    */
+   @GET 
+   @Path("/update") 
+   @Produces(MediaType.APPLICATION_JSON) 
+   public User update( 
+		   @QueryParam("idUser") int idUser,
+		   @QueryParam("Password") String Password,
+		   @QueryParam("Email") String Email,
+		   @QueryParam("idUserType") int idUserType,
+		   @QueryParam("Gender") String Gender,
+		   @QueryParam("Address") String Address,	   
+		   @QueryParam("Fone") String Fone,
+		   @QueryParam("Name") String Name   
+		   )
+   { 
+	   User user = new User();
+	   user.setId(idUser);
+	   user.setPassword(Password);
+	   user.setEmail(Email);
+	   user.setGender(Gender);
+	   user.setAddress(Address);
+	   user.setFone(Fone);
+	   user.setName(Name);
+		  
+		  
+	   
+      return userDao.Update(user); 
+   }  
+   
+   /** Create user
+   * @param idUserType
+   * @param UserType
+   * @return
+   */
+   
+  @GET 
+  @Path("/create") 
+  @Produces(MediaType.APPLICATION_JSON) 
+  public User create( 
+		   @QueryParam("idUser") int idUser,
+		   @QueryParam("Password") String Password,
+		   @QueryParam("Email") String Email,
+		   @QueryParam("idUserType") int idUserType,
+		   @QueryParam("Gender") String Gender,
+		   @QueryParam("Address") String Address,	   
+		   @QueryParam("Fone") String Fone,
+		   @QueryParam("Name") String Name   
+		   )
+  { 
+	   User user = new User();
+	   user.setId(idUser);
+	   user.setPassword(Password);
+	   user.setEmail(Email);
+	   user.setGender(Gender);
+	   user.setAddress(Address);
+	   user.setFone(Fone);
+	   user.setName(Name);
+		  
+		  
+	   
+     return userDao.Create(user); 
+  }  
+  
 }

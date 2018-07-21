@@ -53,4 +53,30 @@ public class UserTypeDAO extends BaseDAO {
 		  }
    }
      
+   /** 
+    * Update the information of a request order
+   * @param requestorder
+   * @return 
+   */
+  public UserType Update(UserType usertype) {
+	   
+	   String updateSql = "update requestorder"
+	   		+ " set "
+	   		+ " `UserType`=:UserType"
+	   		+ " where idUserType = :idUserType";
+
+			try (Connection con = sql2o.open()) {
+			    con.createQuery(updateSql)
+			    		.addParameter("idUserType",usertype.getId())
+			    		.addParameter("UserType",usertype.getType())
+			    		
+				    .executeUpdate();
+			}
+			//get the newest row.
+			System.out.println("Update user type " +"---"+ usertype.getId());
+			
+			return getById(usertype.getId());
+		
+  }
+  
 }

@@ -1,6 +1,7 @@
 package com.jSMWebService.DAO;
 
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.sql2o.Connection;
@@ -94,6 +95,75 @@ public class UserDAO extends BaseDAO {
 		    
 		    return 	query.executeAndFetchFirst(User.class);
 		  }
+   }
+   
+   
+   /**
+    * Update the information of a user
+    * @param user
+ * @return 
+    */
+   public User Update(User user) {
+	   
+	   String updateSql = "update user"
+	   		+ " set "
+			+ " `Name` = :Name, "
+			+ "`Fone` = :Fone, "
+			+ "`Address` = :Address, "
+			+ "`Gender` = :Gender, "
+			+ "`idUserType` = :idUserType, "
+			+ "`Email` = :Email, "
+			+ "`Password` = :Password "
+			+ "WHERE (`idUser` = :idUser);" ;
+		
+			try (Connection con = sql2o.open()) {
+			    con.createQuery(updateSql)
+			    		.addParameter("idUser",user.getId())
+			    		.addParameter("Password",user.getPassword())
+			    		.addParameter("Email",user.getEmail())		    		
+			    		.addParameter("idUserType",user.getIdType())
+			    		.addParameter("Gender",user.getGender())
+			    		.addParameter("Address",user.getAddress())
+			    		.addParameter("Fone",user.getFone())
+			    		.addParameter("Name",user.getName())
+				    .executeUpdate();
+			}
+			//get the newest row.
+			System.out.println("Update User " +"---"+ user.getId() );
+			
+			return selectUserByID(user.getId());
+		
+   }
+   
+   
+   /**
+    * create the information of a user
+    * @param user
+ * @return 
+    */
+   public User Create(User user) {
+	   
+	   String insertSql = "INSERT INTO `user` (`Name`, `Fone`, `Address`, `Gender`, `idUserType`, `Email`, `Password`) "
+	   		+ "VALUES (:Name, :Fone, :Address, :Gender, :idUserType, :Email,:Password);" ;
+	   
+	   		BigInteger insertedId;
+			try (Connection con = sql2o.open()) {
+				insertedId= (BigInteger)con.createQuery(insertSql)
+			    
+			    		.addParameter("Password",user.getPassword())
+			    		.addParameter("Email",user.getEmail())		    		
+			    		.addParameter("idUserType",user.getIdType())
+			    		.addParameter("Gender",user.getGender())
+			    		.addParameter("Address",user.getAddress())
+			    		.addParameter("Fone",user.getFone())
+			    		.addParameter("Name",user.getName())
+				    .executeUpdate().getKey();
+			}
+			//get the newest row.
+			System.out.println("insert User " +"---"+ insertedId.intValue() );
+			
+			return selectUserByID(insertedId.intValue());
+		
    }
    
    

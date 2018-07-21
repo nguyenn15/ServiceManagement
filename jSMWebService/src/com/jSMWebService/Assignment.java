@@ -5,9 +5,28 @@ import java.io.Serializable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-public class Assigment implements Serializable {
+import com.jSMWebService.RequestOrder.STATUS;
 
-	public static enum STATUS {WORKING, FINISH, ACCEPTED, REJECTED}
+public class Assignment implements Serializable {
+
+	public static enum STATUS {
+		WORKING(0), FINISH(1), ACCEPTED(2), REJECTED(3);
+
+		 private final int status;
+		 STATUS(int status) { this.status = status; }
+		 public int getValue() { return status; }
+		 public static STATUS FromInt(int value)
+		 {
+			 switch(value)
+			 {
+				 case 0: return STATUS.WORKING;
+				 case 1: return STATUS.FINISH;
+				 case 2: return STATUS.ACCEPTED;
+				 case 3: return STATUS.REJECTED;
+			 }
+			 return STATUS.WORKING;
+		 }
+	};
 	
 	private int idAssignment;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -17,11 +36,11 @@ public class Assigment implements Serializable {
 	private int idEmployee;
 	private int idAdmin;
 	
-	public Assigment() {
+	public Assignment() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Assigment(int id, STATUS status, int idResponse, int idEmployee)
+	public Assignment(int id, STATUS status, int idResponse, int idEmployee)
 	{
 		this.idAssignment= id;
 		

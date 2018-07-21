@@ -6,11 +6,30 @@ import com.jSMWebService.RequestOrder.STATUS;
 
 public class RequestResponse implements Serializable {
 
-	public static enum STATUS {PENDING , ACCEPTED, REJECTED};
+	public static enum STATUS {
+		
+		PENDING(0) , ACCEPTED(1), REJECTED(2);
+		
+		 private final int status;
+		 STATUS(int status) { this.status = status; }
+		 public int getValue() { return status; }
+		 public static STATUS FromInt(int value)
+		 {
+			 switch(value)
+			 {
+				 case 0: return STATUS.PENDING;
+				 case 1: return STATUS.ACCEPTED;
+				 case 2: return STATUS.REJECTED;
+			 }
+			 return STATUS.PENDING;
+		 }
+	
+	}
+	;
 	
 	private int idResponse;
 	private int idRequest;
-	private int NoOfAlarm;
+	private int NoOfAlarmPanel;
 	private int MotionDetector;
 	private int CableBundle;
 	private int DoorBell;
@@ -24,7 +43,7 @@ public class RequestResponse implements Serializable {
 
 	public RequestResponse(int idResponse, int noOfAlarm, int motionDetector, int cableBundle, int doorBell, double totalCost, STATUS status, int idrequest) {
 		this.idResponse = idResponse;
-		this.NoOfAlarm = noOfAlarm;
+		this.NoOfAlarmPanel = noOfAlarm;
 		this.MotionDetector = motionDetector;
 		this.CableBundle = cableBundle;
 		this.DoorBell = doorBell;
@@ -35,7 +54,8 @@ public class RequestResponse implements Serializable {
 
 	
 	public int getIdResponse() { return this.idResponse; }
-	public int getNoOfAlarm() { return this.NoOfAlarm; }
+	public int getIdRequest() { return this.idRequest; }
+	public int getNoOfAlarmPanel() { return this.NoOfAlarmPanel; }
 	public int getMotionDetector() { return this.MotionDetector; }
 	public int getCableBundle() { return this.CableBundle; }
 	public int getDoorBell() { return this.DoorBell; }
@@ -45,7 +65,8 @@ public class RequestResponse implements Serializable {
 	
 	
 	public void setIdResponse(int idresponse) {  this.idResponse = idresponse; }
-	public void setNoOfAlarm(int noofalarm) {  this.NoOfAlarm = noofalarm; }
+	public void setIdRequest(int idrequest) {  this.idRequest = idrequest; }
+	public void setNoOfAlarmPanel(int noofalarm) {  this.NoOfAlarmPanel = noofalarm; }
 	public void setMotionDetector(int motiondetector) {  this.MotionDetector=motiondetector; }
 	public void setCableBundle(int cablebundle) {  this.CableBundle= cablebundle; }
 	public void setDoorBell(int doorbell) {  this.DoorBell = doorbell; }

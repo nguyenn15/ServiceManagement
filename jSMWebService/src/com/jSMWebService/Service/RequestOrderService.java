@@ -22,7 +22,7 @@ public class RequestOrderService {
 	 * @return
 	 */
    @GET 
-   @Path("/RequestOrders") 
+   @Path("/all") 
    @Produces(MediaType.APPLICATION_JSON) 
    public List<RequestOrder> getRequestOrders(){ 
       return RequestOrderDao.getAllRequestOrders(); 
@@ -34,7 +34,7 @@ public class RequestOrderService {
     * @return
     */
    @GET 
-   @Path("/ByID") 
+   @Path("/byId") 
    @Produces(MediaType.APPLICATION_JSON) 
    public RequestOrder getRequestOrderByID(
 		   @QueryParam("idRequest") int idRequest
@@ -50,7 +50,7 @@ public class RequestOrderService {
     * @return
     */
    @GET 
-   @Path("/ByCustomerID") 
+   @Path("/byCustomerId") 
    @Produces(MediaType.APPLICATION_JSON) 
    public List<RequestOrder> getRequestOrdersByCustomer(
 		   @QueryParam("idCustomer") int idCustomer
@@ -65,7 +65,7 @@ public class RequestOrderService {
     * @return
    */
   @GET 
-  @Path("/ByStatus") 
+  @Path("/byStatus") 
   @Produces(MediaType.APPLICATION_JSON) 
   public List<RequestOrder> getByStatus(
 		   @QueryParam("Status") int Status
@@ -82,7 +82,7 @@ public class RequestOrderService {
     * @return
     */
    @GET 
-   @Path("/Create") 
+   @Path("/create") 
    @Produces(MediaType.APPLICATION_JSON) 
    public RequestOrder  Create(
 
@@ -140,13 +140,11 @@ public class RequestOrderService {
     * @return
     */
    @GET 
-   @Path("/Update") 
+   @Path("/update") 
    @Produces(MediaType.APPLICATION_JSON) 
    public RequestOrder  Update(
-		   @QueryParam("idRequest")int idRequest,
-		  // @QueryParam("Date") java.util.Date Date , // the create date time can not be changed
-		   @QueryParam("Area") double Area,
-		   //@QueryParam("Medium") int Medium,
+		   @QueryParam("idRequest")int idRequest,		 
+		   @QueryParam("Area") double Area,		   
 		   @QueryParam("NoOfDoors") int NoOfDoors,
 		   @QueryParam("EntryDoors") int Entry_Exit_Doors,
 		   @QueryParam("OpenWindows") int OpenWindows,
@@ -164,16 +162,16 @@ public class RequestOrderService {
 	
 	   RequestOrder.STATUS rStatus = STATUS.FromInt(Status);
 	   
-	   System.out.println("Create request from user "+idCustomer);
+	   System.out.println("Update request from user "+idCustomer);
 	   
 	 try {
-		   RequestOrder  obj= new RequestOrder(0 ,  Area,NoOfDoors,Entry_Exit_Doors,OpenWindows,OpenAreas,DoorBell,LocationOfService,rStatus,idCustomer,idManager,idAdmin);
+		   RequestOrder  obj= new RequestOrder(idRequest,Area,NoOfDoors,Entry_Exit_Doors,OpenWindows,OpenAreas,DoorBell,LocationOfService,rStatus,idCustomer,idManager,idAdmin);
 		   
 		   objRequestOrder=RequestOrderDao.Update(obj);
 		  
 	} catch (Exception e) {
 		// TODO: handle exception
-		System.out.println(e.getMessage());
+		e.printStackTrace();
 	} 
 	 return objRequestOrder;
    }  

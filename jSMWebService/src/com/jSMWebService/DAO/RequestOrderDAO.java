@@ -167,19 +167,27 @@ public class RequestOrderDAO extends BaseDAO {
 	    */
 	   public RequestOrder Update(RequestOrder requestorder) {
 		   
+		
+		   
 		   String updateSql = "update requestorder"
 		   		+ " set "
-		   		+ " `Date`=:Date , `Area`=:Area , `NoOfDoors`=:NoOfDoors ,"
-		   		+ " `Entry_Exit_Doors`=:Entry_Exit_Doors , `OpenWindows`=:OpenWindows , `OpenAreas`=:OpenAreas, `DoorBell`=:DoorBell , `LocationOfService`=:LocationOfService , `Status`=:Status ,"
-		   		+ " `idCustomer` =:idCustomer, `idManager` =:idManager, `idAdmin` =:idAdmin`"  
-		   		+ " where idRequest = :idRequest";
+		   		+ " `Area`=:Area , "
+		   		+ " `NoOfDoors`=:NoOfDoors ,"
+				+ " `Entry_Exit_Doors`=:Entry_Exit_Doors , "
+		   		+ "	`OpenWindows`=:OpenWindows , "
+		   		+ " `OpenAreas`=:OpenAreas, "
+		  		+ " `DoorBell`=:DoorBell , "
+		   		+ " `LocationOfService`=:LocationOfService , "
+		   		+ " `Status`=:Status, "
+		   		+ " `idCustomer` =:idCustomer,"
+		   		+ " `idManager` =:idManager, "
+		   		+ " `idAdmin` =:idAdmin" 
+		   		+ " where idRequest = :idRequest ";
 
 				try (Connection con = sql2o.open()) {
 				    con.createQuery(updateSql)
 				    		.addParameter("idRequest",requestorder.getIdRequest())
-				    		.addParameter("Date",requestorder.getDate())
-				    		.addParameter("Area",requestorder.getArea())
-				    		
+				    		.addParameter("Area",requestorder.getArea())				    		
 				    		.addParameter("NoOfDoors",requestorder.getNoOfDoors())
 				    		.addParameter("Entry_Exit_Doors",requestorder.getEntry_Exit_Doors())
 				    		.addParameter("OpenWindows",requestorder.getOpenWindows())
