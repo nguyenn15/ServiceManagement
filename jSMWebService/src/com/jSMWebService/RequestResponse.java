@@ -7,9 +7,8 @@ import com.jSMWebService.RequestOrder.STATUS;
 public class RequestResponse implements Serializable {
 
 	public static enum STATUS {
-		
-		PENDING(0) , ACCEPTED(1), REJECTED(2);
-		
+		PENDING(0),REVIEWED(1), ACCEPTED(2), REJECTED(3), INPROGRESS(4);
+	
 		 private final int status;
 		 STATUS(int status) { this.status = status; }
 		 public int getValue() { return status; }
@@ -18,14 +17,14 @@ public class RequestResponse implements Serializable {
 			 switch(value)
 			 {
 				 case 0: return STATUS.PENDING;
-				 case 1: return STATUS.ACCEPTED;
-				 case 2: return STATUS.REJECTED;
+				 case 1: return STATUS.REVIEWED;
+				 case 2: return STATUS.ACCEPTED;
+				 case 3: return STATUS.REJECTED;
+				 case 4: return STATUS.INPROGRESS;
 			 }
 			 return STATUS.PENDING;
 		 }
-	
 	}
-	;
 	
 	private int idResponse;
 	private int idRequest;

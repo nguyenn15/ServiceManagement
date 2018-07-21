@@ -121,7 +121,7 @@ public class RequestOrderDAO extends BaseDAO {
 			        "FROM RequestOrder WHERE Status = :status";
 
 			    return con.createQuery(query)
-			        .addParameter("status", status)
+			        .addParameter("status", status.getValue())
 			        .executeAndFetch(RequestOrder.class);
 			  }
 	   }
