@@ -17,5 +17,7 @@ public interface RequestOrderApi {
     @GET("RequestOrderService/byStatus")
     Call<List<RequestOrder>> byStatus(@QueryMap Map<String, String> params); // get all RequestOrders for testing only
 
+    @GET("UserService/users")
+    Call<List<User>> Users(); // get all users for testing only
 
 }

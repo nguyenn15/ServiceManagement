@@ -118,12 +118,11 @@
                 />
 
             <Button
-                android:id="@+id/editProfile"
+                android:id="@+id/sendQuote"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Send Quote"
                 android:layout_marginTop="20dp"
-                />
+                android:text="Send Quote" />
 
 
         </GridLayout>

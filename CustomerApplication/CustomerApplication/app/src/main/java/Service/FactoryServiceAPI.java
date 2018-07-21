@@ -1,5 +1,6 @@
 package Service;
 
+import ORM.RequestOrder;
 import ORM.User;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,8 +15,10 @@ public class FactoryServiceAPI {
     private static UserApi userApi;
     private static RequestOrderApi requestOrderApi;
     // variable keep logged user
-    public  static User currentUser; //
-    
+    public  static User currentUser;
+    public  static RequestOrder idRequest;
+
+
     static{
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_SERVICE)
