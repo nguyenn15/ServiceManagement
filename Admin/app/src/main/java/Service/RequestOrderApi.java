@@ -14,10 +14,14 @@ public interface RequestOrderApi {
     @GET("RequestOrderService/all")
     Call<List<RequestOrder>> RequestOrders(); // get all RequestOrders for testing only
 
+    @GET("RequestOrderService/byId")
+    Call<RequestOrder> RequestOrdersById(@QueryMap Map<String, String> params); //get request order with particular id
+
     @GET("RequestOrderService/byStatus")
     Call<List<RequestOrder>> byStatus(@QueryMap Map<String, String> params); // get all RequestOrders for testing only
 
-    @GET("UserService/users")
-    Call<List<User>> Users(); // get all users for testing only
+
+    @GET("RequestOrderService/update")
+    Call<RequestOrder> Update(@QueryMap Map<String, String> params);
 
 }

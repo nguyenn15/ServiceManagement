@@ -16,7 +16,7 @@ import retrofit2.http.QueryMap;
 
 public interface RequestResponseApi {
 
-    @GET("RequesResponseService/create")
+    @GET("RequestResponseService/create")
     Call<RequestResponse> Create(@QueryMap Map<String, String> params);
 
 
