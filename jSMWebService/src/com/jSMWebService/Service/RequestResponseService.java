@@ -11,7 +11,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.jSMWebService.RequestResponse;
+import com.jSMWebService.RequestOrder;
 import com.jSMWebService.RequestResponse.STATUS;
+import com.jSMWebService.DAO.RequestOrderDAO;
 import com.jSMWebService.DAO.RequestResponseDAO;  
 @Path("/RequestResponseService") 
 
@@ -56,6 +58,7 @@ public class RequestResponseService {
 		   @QueryParam("idRequest") int idRequest
 		   )
    { 
+	   
 	  return RequestResponseDao.selectByRequestId(idRequest) ;
 	   
    }  
@@ -78,6 +81,21 @@ public class RequestResponseService {
 	 
      return RequestResponseDao.selectByStatus(rStatus);
   }    
+  
+  /**
+   * Get ReqResp by status
+   * @param Status
+   * @return
+  */
+ @GET 
+ @Path("/byCustomerId") 
+ @Produces(MediaType.APPLICATION_JSON) 
+ public List<RequestResponse> getByCustomerId(
+		   @QueryParam("idCustomer") int idCustomer
+		   )
+ { return RequestResponseDao.selectByCustomerId(idCustomer);
+ }    
+  
    
    /**
     * Create ne request reponse from an requestorder id
@@ -100,9 +118,7 @@ public class RequestResponseService {
 		   @QueryParam("MotionDetector") int MotionDetector,
 		   @QueryParam("CableBundle") int CableBundle,		   
 		   @QueryParam("DoorBell") int DoorBell,
-		   @QueryParam("TotalCost") double TotalCost,
-		   @QueryParam("Status") int Status
-
+		   @QueryParam("TotalCost") double TotalCost
 		   )
 
 	
@@ -123,6 +139,16 @@ public class RequestResponseService {
 		   obj.setTotalCost(TotalCost);
 		   obj.setStatus(rStatus);
 		   objRequestResponse=RequestResponseDao.create(obj);
+		   //--- change to reviewed
+		   RequestOrderDAO RequestOrderDao = new RequestOrderDAO(); 
+
+		   
+		   RequestOrder requestorder = RequestOrderDao.selectRequestOrderByID(obj.getIdRequest());
+		   if(requestorder!=null)
+		   {
+			   requestorder.setStatus(com.jSMWebService.RequestOrder.STATUS.REVIEWED); // update reviewed
+			   RequestOrderDao.Update(requestorder);
+		   }
 		
 	} catch (Exception e) {
 		// TODO: handle exception
@@ -166,6 +192,8 @@ public class RequestResponseService {
    { 
 	   RequestResponse objRequestResponse=null;
 
+	   System.out.println("Update Quote id: " + idResponse +" with status "+ Status);
+	   
 	   RequestResponse.STATUS rStatus = STATUS.FromInt(Status);
 	   	   	   
 	 try {
