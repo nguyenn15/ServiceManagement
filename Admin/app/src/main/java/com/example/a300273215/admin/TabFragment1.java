@@ -1,18 +1,11 @@
 package com.example.a300273215.admin;
 
-import android.app.DownloadManager;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,7 +17,6 @@ import java.util.Map;
 import ORM.RequestOrder;
 import Service.FactoryServiceAPI;
 import Service.RequestOrderApi;
-import adapter.MyAdapter;
 import adapter.Tab1RecyclerAdapter;
 import model.ListItem;
 import retrofit2.Call;
@@ -38,7 +30,7 @@ import retrofit2.Response;
 public class TabFragment1 extends Fragment {
 
 
-    List<RequestOrder> orders = new ArrayList<>();
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<ListItem> listItems;

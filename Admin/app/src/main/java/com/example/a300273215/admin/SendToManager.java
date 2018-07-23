@@ -1,4 +1,4 @@
-package com.example.amandeep.customerapplication;
+package com.example.a300273215.admin;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import Model.ListItem;
 import ORM.RequestOrder;
 import ORM.RequestResponse;
 import ORM.User;
@@ -29,10 +28,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AcceptOrderActivity extends AppCompatActivity {
-    private Toolbar mToolbar;
+public class SendToManager extends AppCompatActivity {
+
     DrawerLayout drawerLayout;
     NavigationView navigation;
+    private Toolbar mToolbar;
+
+    TextView quote;
+    Button send;
+
 
     //for updating request order
     private double area;
@@ -48,42 +52,33 @@ public class AcceptOrderActivity extends AppCompatActivity {
     private int idAdmin;
     private int RequestId;
 
-    //private RequestResponse quotes;; //quote details
-
-    TextView quote;
-    Button send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_accept_order);
-        Intent intent=getIntent();
-         RequestId=intent.getIntExtra("requestId",0);
+        setContentView(R.layout.activity_send_to_manager);
 
         quote=(TextView)findViewById(R.id.details);
         send=(Button)findViewById(R.id.sendOrder);
+        Intent intent=getIntent();
+        RequestId=intent.getIntExtra("requestId",0);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 // here status of request is changed to accepted
-               updateStatus();
+                updateStatus();
             }
         });
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         setupToolbarMenu();
 
-
-
-        ActionBarDrawerToggle drawerToggle=new ActionBarDrawerToggle
-                (this, drawerLayout, mToolbar, R.string.drawerOpen, R.string.drawerClose);
+        ActionBarDrawerToggle drawerToggle=new ActionBarDrawerToggle(this, drawerLayout, mToolbar, R.string.drawerOpen, R.string.drawerClose);
 
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
-        navigation = (NavigationView) findViewById(R.id.nav_view);
+        navigation = (NavigationView)findViewById(R.id.nav_view);
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -92,31 +87,26 @@ public class AcceptOrderActivity extends AppCompatActivity {
                     case R.id.home:
                         //Do some thing here
                         // add navigation drawer item onclick method here
-                        startActivity(new Intent(AcceptOrderActivity.this, CustomerPage.class));
+                        startActivity(new Intent(SendToManager.this, AdminHomePage.class));
                         break;
                     case R.id.profile:
                         //Do some thing here
                         // add navigation drawer item onclick method here
-                        startActivity(new Intent(AcceptOrderActivity.this, EditProfile.class));
-                        break;
+                        startActivity(new Intent(SendToManager.this, EditProfile.class));
 
-                    case R.id.orders:
-                        //Do some thing here
-                        // add navigation drawer item onclick method here
-                        startActivity(new Intent(AcceptOrderActivity.this, OrdersActivity.class));
                         break;
-
 
                     case R.id.logout:
                         //Do some thing here
                         // add navigation drawer item onclick method here
-                        startActivity(new Intent(AcceptOrderActivity.this, LoginActivity.class));
+                        startActivity(new Intent(SendToManager.this, LoginActivity.class));
                         break;
                 }
                 return false;
             }
         });
-                         setData();
+        setData();
+
 
     }
 
@@ -132,7 +122,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
         paramUpdate.put("OpenAreas", openAreas+"");
         paramUpdate.put("DoorBell", doorbell+"");
         paramUpdate.put("LocationOfService", locationOfService+"");
-        paramUpdate.put("Status", RequestOrder.STATUS.ACCEPTED.getValue()+"");
+        paramUpdate.put("Status", RequestOrder.STATUS.INPROGRESS.getValue()+"");
         paramUpdate.put("idCustomer",idCustomer +"");
         paramUpdate.put("idManager", idManager+"");
         paramUpdate.put("idAdmin",+idAdmin+"");
@@ -145,10 +135,10 @@ public class AcceptOrderActivity extends AppCompatActivity {
                 RequestOrder requestOrder=response.body();
                 if(requestOrder==null)
                 {
-                    Toast.makeText(AcceptOrderActivity.this,"Cannot update the status of Request Order",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendToManager.this,"Cannot send Empty Request",Toast.LENGTH_SHORT).show();
                 }
                 else
-                    Toast.makeText(AcceptOrderActivity.this,"Request Sent To Company "+ requestOrder.getIdRequest(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendToManager.this,"Order Sent To Manager "+ requestOrder.getIdRequest(),Toast.LENGTH_SHORT).show();
 
 
             }
@@ -202,9 +192,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
 
     private void setupToolbarMenu() {
         mToolbar=(Toolbar)findViewById(R.id.toolbar);
-        mToolbar.setTitle("Orders");
-
-
+        mToolbar.setTitle("Accepted Orders");
     }
 
     public void setData()
@@ -214,7 +202,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
         Map<String, String> params = new HashMap<String, String>();
         params.put("idRequest", RequestId+"");
         RequestResponseApi requestResponseApi = FactoryServiceAPI.GetRequestResponseApi();
-        final Call< List<RequestResponse> > requestResponse = requestResponseApi.getQuoteById(params);
+        final Call<List<RequestResponse>> requestResponse = requestResponseApi.getQuoteById(params);
 
         requestResponse.enqueue(new Callback<List<RequestResponse>>() {
             @Override

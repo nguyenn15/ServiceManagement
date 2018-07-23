@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.ListItem;
+import ORM.RequestOrder;
 import ORM.RequestResponse;
 
 
@@ -43,7 +44,7 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder> {
         ListItem listItem=listItems.get(position);
 
         holder.description.setText("Request Number: "+listItem.getId());
-        holder.status.setText(listItem.getStatus());
+        holder.status.setText(RequestOrder.STATUS.FromInt(Integer.parseInt(listItem.getStatus()))+"");
 
     }
 

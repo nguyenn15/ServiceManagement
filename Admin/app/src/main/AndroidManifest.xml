@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".AdminHomePage" />
         <activity android:name=".EditProfile" />
-        <activity android:name=".SendQuoteToCustomer"></activity>
+        <activity android:name=".SendQuoteToCustomer" />
+        <activity android:name=".SendToManager"></activity>
     </application>
 
 </manifest>

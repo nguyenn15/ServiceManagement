@@ -19,5 +19,8 @@ public interface RequestResponseApi {
     @GET("RequestResponseService/create")
     Call<RequestResponse> Create(@QueryMap Map<String, String> params);
 
+    @GET("RequestResponseService/byRequestId")
+    Call<List<RequestResponse>> getQuoteById(@QueryMap Map<String, String> params);
+
 
 }

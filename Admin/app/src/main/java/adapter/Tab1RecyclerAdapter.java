@@ -13,6 +13,7 @@ import com.example.a300273215.admin.SendQuoteToCustomer;
 
 import java.util.List;
 
+import ORM.RequestOrder;
 import model.ListItem;
 
 /**
@@ -41,7 +42,7 @@ public class Tab1RecyclerAdapter extends RecyclerView.Adapter<Tab1RecyclerAdapte
         ListItem listItem=listItems.get(position);
 
         holder.description.setText("Request Number " + listItem.getId());
-        holder.statusText.setText(listItem.getStatus());
+        holder.statusText.setText(RequestOrder.STATUS.FromInt(Integer.parseInt(listItem.getStatus()))+"");
 
     }
 
@@ -73,7 +74,7 @@ public class Tab1RecyclerAdapter extends RecyclerView.Adapter<Tab1RecyclerAdapte
             Intent myIntent = new Intent(context,
                     SendQuoteToCustomer.class);
             myIntent.putExtra("id",item.getId());
-            myIntent.putExtra("idCustomer",item.getIdCustomer());
+
             context. startActivity(myIntent);
 
 

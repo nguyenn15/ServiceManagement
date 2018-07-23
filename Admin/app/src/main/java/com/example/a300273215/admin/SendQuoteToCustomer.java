@@ -36,19 +36,7 @@ private EditText noOfAlarmPanel;
     private int cablebundles;
     private double totalcost;
 
-    //for updating request order
-    private double area;
-    private double noOfDoors;
-    private double entryDoors;
-    private double openWindows;
-    private double openAreas;
-    private double doorbell;
-    private String locationOfService;
-    private double status;
-    private double idCustomer;
-    private double idManager;
-    private double idAdmin;
-    private int customerID;
+
 
 
 
@@ -91,7 +79,7 @@ private EditText noOfAlarmPanel;
 
             Intent intent=getIntent();
             int RequestId=intent.getIntExtra("id",0);
-            customerID=intent.getIntExtra("idCustomer",0);
+
 
             // prepare params for api call
             Map<String, String> params = new HashMap<String, String>();
@@ -122,7 +110,7 @@ private EditText noOfAlarmPanel;
                             Toast.makeText(SendQuoteToCustomer.this,"Cannot create the Quote ",Toast.LENGTH_SHORT).show();
                         }
                         else
-                            Toast.makeText(SendQuoteToCustomer.this,"Created a Request Order with id: "+ responseDone.getIdRequest(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SendQuoteToCustomer.this,"Quote Sent to customer for Approval for request number  "+ responseDone.getIdRequest(),Toast.LENGTH_SHORT).show();
                         noOfAlarmPanel.setText("");
                         motionDetector.setText("");
                         doorBell.setText("");
@@ -139,70 +127,9 @@ private EditText noOfAlarmPanel;
                 });
 
 
-                RequestOrderApi requestorderApi = FactoryServiceAPI.GetRequesetOrderApi();
-                Map<String, String> param = new HashMap<String, String>();
-                param.put("idRequest", RequestId+"");
-                Call<RequestOrder> requestordersById = requestorderApi.RequestOrdersById(param);
-
-                requestordersById.enqueue(new Callback<RequestOrder>() {
-                    @Override
-                    public void onResponse(Call<RequestOrder> call, Response<RequestOrder> response) {
-                       RequestOrder requestOrder= response.body();
-                       area=  requestOrder.getArea();
-                       noOfDoors=requestOrder.getNoOfDoors();
-                       entryDoors=requestOrder.getEntryExitDoors();
-                       openWindows=requestOrder.getOpenWindows();
-                       openAreas=requestOrder.getOpenAreas();
-                       doorbell=requestOrder.getDoorBell();
-                       locationOfService=requestOrder.getLocationOfService();
-                       idCustomer=requestOrder.getIdCustomer();
-                       idManager=requestOrder.getIdManager();
-                       idAdmin=requestOrder.getIdAdmin();
 
 
-                    }
 
-                    @Override
-                    public void onFailure(Call<RequestOrder> call, Throwable t) {
-
-                    }
-                });
-
-           /*     User currentUser = FactoryServiceAPI.currentUser;
-                Map<String, String> paramUpdate = new HashMap<String, String>();
-                paramUpdate.put("idRequest", RequestId+"");
-                paramUpdate.put("Area", area+"");
-                paramUpdate.put("NoOfDoors", noOfDoors+"");
-                paramUpdate.put("EntryDoors", entryDoors+"");
-                paramUpdate.put("OpenWindows", openWindows+"");
-                paramUpdate.put("OpenAreas", openAreas+"");
-                paramUpdate.put("DoorBell", doorbell+"");
-                paramUpdate.put("LocationOfService", locationOfService);
-                paramUpdate.put("Status", 1+"");
-                paramUpdate.put("idCustomer",idCustomer +"");
-                paramUpdate.put("idManager", idManager+"");
-                paramUpdate.put("idAdmin",+currentUser.getId()+"");
-
-                Call<RequestOrder> requestorderUpdate = requestorderApi.Update(param);
-                requestorderUpdate.enqueue(new Callback<RequestOrder>() {
-                    @Override
-                    public void onResponse(Call<RequestOrder> call, Response<RequestOrder> response) {
-                            RequestOrder requestOrder=response.body();
-                        if(requestOrder==null)
-                        {
-                            Toast.makeText(SendQuoteToCustomer.this,"Cannot update the status of Request Order",Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                            Toast.makeText(SendQuoteToCustomer.this,"Updated the status of Request Order with id: "+ requestOrder.getIdRequest(),Toast.LENGTH_SHORT).show();
-
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<RequestOrder> call, Throwable t) {
-
-                    }
-                });*/
 
 
             } catch (Exception e) {
