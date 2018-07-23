@@ -14,6 +14,7 @@ public class FactoryServiceAPI {
     public static  String BASE_SERVICE = "http://35.237.181.74:8080/jSMWebService/rest/";
     private static UserApi userApi;
     private static RequestOrderApi requestOrderApi;
+    private static RequestResponseApi requestResponseApi;
     // variable keep logged user
     public  static User currentUser;
     public  static RequestOrder idRequest;
@@ -27,6 +28,8 @@ public class FactoryServiceAPI {
         // apis
         userApi = retrofit.create(UserApi.class);
         requestOrderApi = retrofit.create(RequestOrderApi.class);
+        requestResponseApi=retrofit.create(RequestResponseApi.class);
+
 
     }
 
@@ -41,5 +44,7 @@ public class FactoryServiceAPI {
     {
         return requestOrderApi;
     }
+
+    public static RequestResponseApi GetRequestResponseApi() { return requestResponseApi;}
 
 }

@@ -1,56 +1,99 @@
 package ORM;
 
-import java.io.Serializable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-//import com.jSMWebService.RequestOrder.STATUS;
+public class RequestResponse {
 
-public class RequestResponse implements Serializable {
+	@SerializedName("cableBundle")
+	@Expose
+	private Integer cableBundle;
+	@SerializedName("doorBell")
+	@Expose
+	private Integer doorBell;
+	@SerializedName("idRequest")
+	@Expose
+	private Integer idRequest;
+	@SerializedName("idResponse")
+	@Expose
+	private Integer idResponse;
+	@SerializedName("motionDetector")
+	@Expose
+	private Integer motionDetector;
+	@SerializedName("noOfAlarmPanel")
+	@Expose
+	private Integer noOfAlarmPanel;
 
-	public static enum STATUS {PENDING , ACCEPTED, REJECTED};
-	
-	private int idResponse;
-	private int idRequest;
-	private int NoOfAlarm;
-	private int MotionDetector;
-	private int CableBundle;
-	private int DoorBell;
-	private double TotalCost;
-	private STATUS Status = STATUS.PENDING;
+	/*@SerializedName("status")
+	@Expose
+	private String status;*/
 
-	
-	public RequestResponse() {
-		// TODO Auto-generated constructor stub
+	@SerializedName("totalCost")
+	@Expose
+	private Double totalCost;
+
+	public Integer getCableBundle() {
+		return cableBundle;
 	}
 
-	public RequestResponse(int idResponse, int noOfAlarm, int motionDetector, int cableBundle, int doorBell, double totalCost, STATUS status, int idrequest) {
+	public void setCableBundle(Integer cableBundle) {
+		this.cableBundle = cableBundle;
+	}
+
+	public Integer getDoorBell() {
+		return doorBell;
+	}
+
+	public void setDoorBell(Integer doorBell) {
+		this.doorBell = doorBell;
+	}
+
+	public Integer getIdRequest() {
+		return idRequest;
+	}
+
+	public void setIdRequest(Integer idRequest) {
+		this.idRequest = idRequest;
+	}
+
+	public Integer getIdResponse() {
+		return idResponse;
+	}
+
+	public void setIdResponse(Integer idResponse) {
 		this.idResponse = idResponse;
-		this.NoOfAlarm = noOfAlarm;
-		this.MotionDetector = motionDetector;
-		this.CableBundle = cableBundle;
-		this.DoorBell = doorBell;
-		this.TotalCost = totalCost;
-		this.Status = status;
-		this.idRequest = idrequest;
 	}
 
-	
-	public int getIdResponse() { return this.idResponse; }
-	public int getNoOfAlarm() { return this.NoOfAlarm; }
-	public int getMotionDetector() { return this.MotionDetector; }
-	public int getCableBundle() { return this.CableBundle; }
-	public int getDoorBell() { return this.DoorBell; }
-	public double getTotalCost() { return this.TotalCost; }
-	public STATUS getStatus() { return this.Status; }
-	
-	
-	
-	public void setIdResponse(int idresponse) {  this.idResponse = idresponse; }
-	public void setNoOfAlarm(int noofalarm) {  this.NoOfAlarm = noofalarm; }
-	public void setMotionDetector(int motiondetector) {  this.MotionDetector=motiondetector; }
-	public void setCableBundle(int cablebundle) {  this.CableBundle= cablebundle; }
-	public void setDoorBell(int doorbell) {  this.DoorBell = doorbell; }
-	public void setTotalCost(double totalcost) {  this.TotalCost = totalcost; }
-	public void setStatus(STATUS status) {  this.Status = status; }
-	
-	
+	public Integer getMotionDetector() {
+		return motionDetector;
+	}
+
+	public void setMotionDetector(Integer motionDetector) {
+		this.motionDetector = motionDetector;
+	}
+
+	public Integer getNoOfAlarmPanel() {
+		return noOfAlarmPanel;
+	}
+
+	public void setNoOfAlarmPanel(Integer noOfAlarmPanel) {
+		this.noOfAlarmPanel = noOfAlarmPanel;
+	}
+/*
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+*/
+	public Double getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(Double totalCost) {
+		this.totalCost = totalCost;
+	}
+
 }

@@ -12,6 +12,16 @@ import retrofit2.http.QueryMap;
 public interface RequestOrderApi {
 
     // Create
-    @GET("RequestOrderService/Create")
+    @GET("RequestOrderService/create")
     Call<RequestOrder> Create(@QueryMap Map<String, String> params);
+
+
+    @GET("RequestOrderService/byStatus")
+    Call<List<RequestOrder>> byStatus(@QueryMap Map<String, String> params); // get all RequestOrders for testing only
+
+    @GET("RequestOrderService/byId")
+    Call<RequestOrder> RequestOrdersById(@QueryMap Map<String, String> params); //get request order with particular id
+
+    @GET("RequestOrderService/update")
+    Call<RequestOrder> Update(@QueryMap Map<String, String> params);
 }

@@ -95,6 +95,7 @@ public class RequestOrder implements Serializable {
 	public void setArea(double area) {  this.Area = area; }
 	
 	
+	public void setStatus(STATUS status) {  this.Status= status.getValue(); }
 	
 	public void setNoOfDoors(int doors) { this.NoOfDoors= doors;}
 	public void setEntry_Exit_Doors(int entries) { this.Entry_Exit_Doors = entries;}	

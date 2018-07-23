@@ -24,7 +24,7 @@ public class RequestResponseDAO extends BaseDAO {
 		 String sql =
 			        "SELECT * " +
 			        "FROM resquestresponse";
-
+		 System.out.println(sql);
 			    try(Connection con = sql2o.open()) {
 			        return con.createQuery(sql).executeAndFetch(RequestResponse.class);
 			    }
@@ -45,6 +45,7 @@ public class RequestResponseDAO extends BaseDAO {
 			        "FROM resquestresponse WHERE idResponse = :idResponse";
 			    System.out.println(query.toString() +"---"+ responseId );
 			    
+			    
 			    return con.createQuery(query)
 			        .addParameter("idResponse", responseId)
 			        .executeAndFetchFirst(RequestResponse.class);
@@ -64,8 +65,34 @@ public class RequestResponseDAO extends BaseDAO {
 			        "SELECT * " +
 			        "FROM resquestresponse WHERE idRequest = :idRequest";
 
+			    System.out.println(query + "--" +requestId );
+			    
+			    
 			    return con.createQuery(query)
 			        .addParameter("idRequest", requestId)
+			        .executeAndFetch(RequestResponse.class);
+			  }
+	   }
+
+	   /**
+	    * Get Request by Customer ID 
+	    * @param status
+	    * @return
+	    */
+	   public List<RequestResponse> selectByCustomerId(int customerid)
+	   {
+		 
+		   try (Connection con = sql2o.open()) {
+			    final String query =
+			        " SELECT B.* " + 
+			        " FROM RequestOrder  A inner join ResquestResponse  B on A.idRequest = B.idRequest " + 
+			        " where A.idCustomer = :idCustomer ";
+			       
+			    System.out.println(query + " with id Customer: "+customerid);
+			    
+			    return con.createQuery(query)
+			       .addParameter("idCustomer", customerid)
+			        
 			        .executeAndFetch(RequestResponse.class);
 			  }
 	   }
@@ -82,13 +109,15 @@ public class RequestResponseDAO extends BaseDAO {
 			    final String query =
 			        "SELECT * " +
 			        "FROM resquestresponse WHERE Status = :status";
-
+			    System.out.println(query);
 			    return con.createQuery(query)
 			        .addParameter("status", status.getValue())
 			        .executeAndFetch(RequestResponse.class);
 			  }
 	   }
 
+	   
+	   
 	   /**
 	    * Create an new Request Response
 	    * @param requestresponse
@@ -101,7 +130,8 @@ public class RequestResponseDAO extends BaseDAO {
 		   		+ "(`NoOfAlarmPanel`, `MotionDetector`, `CableBundle`, `DoorBell`, `TotalCost`, `Status`, `idRequest`) "
 		   		+ "VALUES (:NoOfAlarmPanel, :MotionDetector, :CableBundle, :DoorBell, :TotalCost, :Status, :idRequest);\r\n"; 
 		   	 
-					 
+		   System.out.println(insertSql);
+		   
 		   		BigInteger insertedId;
 				try (Connection con = sql2o.open()) {
 					insertedId =  (BigInteger)con.createQuery(insertSql, true)
@@ -141,6 +171,7 @@ public class RequestResponseDAO extends BaseDAO {
 		   		+ "`idRequest` = :idRequest "
 		   		+ "WHERE (`idResponse` = :idResponse);\r\n"  
 		   		;
+		   System.out.println(updateSql);
 
 				try (Connection con = sql2o.open()) {
 				    con.createQuery(updateSql)
