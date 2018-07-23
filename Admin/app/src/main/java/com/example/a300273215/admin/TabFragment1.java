@@ -86,6 +86,7 @@ public class TabFragment1 extends Fragment {
                         ListItem listItem = new ListItem(tp.getIdRequest(), tp.getStatus().toString(),tp.getIdCustomer());
                         listItems.add(listItem);
                     }
+                    adapter.notifyDataSetChanged();
 
                 }
 

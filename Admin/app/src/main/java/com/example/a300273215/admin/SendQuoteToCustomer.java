@@ -101,7 +101,7 @@ private EditText noOfAlarmPanel;
             params.put("CableBundle",String.valueOf(cablebundles) );
             params.put("DoorBell", String.valueOf(doorbells));
             params.put("TotalCost", String.valueOf(totalcost));
-            params.put("Status",2+"" );
+
 
 
             try {
@@ -168,7 +168,7 @@ private EditText noOfAlarmPanel;
                     }
                 });
 
-                User currentUser = FactoryServiceAPI.currentUser;
+           /*     User currentUser = FactoryServiceAPI.currentUser;
                 Map<String, String> paramUpdate = new HashMap<String, String>();
                 paramUpdate.put("idRequest", RequestId+"");
                 paramUpdate.put("Area", area+"");
@@ -202,7 +202,7 @@ private EditText noOfAlarmPanel;
                     public void onFailure(Call<RequestOrder> call, Throwable t) {
 
                     }
-                });
+                });*/
 
 
             } catch (Exception e) {
