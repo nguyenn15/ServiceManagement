@@ -42,7 +42,7 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder> {
     public void onBindViewHolder(MyAdapter.ViewHolder holder, int position) {
         ListItem listItem=listItems.get(position);
 
-        holder.description.setText(listItem.getDescription());
+        holder.description.setText("Request Number: "+listItem.getId());
         holder.status.setText(listItem.getStatus());
 
     }
@@ -71,26 +71,10 @@ public class MyAdapter extends RecyclerView.Adapter <MyAdapter.ViewHolder> {
             int position=getAdapterPosition();
             ListItem item= listItems.get(position);
              // get quote from database depending on request id
-
-            if(item.getStatus().equals("approved"))
-            {
-//                this.idResponse = idResponse;
-//                this.NoOfAlarm = noOfAlarm;
-//                this.MotionDetector = motionDetector;
-//                this.CableBundle = cableBundle;
-//                this.DoorBell = doorBell;
-//                this.TotalCost = totalCost;
-//                this.Status = status;
-//                this.idRequest = idrequest;
-
                 Intent intent= new Intent(context, AcceptOrderActivity.class);
-                intent.putExtra("requestId",position);
+                intent.putExtra("requestId",item.getId());
                 context.startActivity(intent);
-            }
-            else
-            {
-                Toast.makeText(context,"Pending Request",Toast.LENGTH_SHORT).show();
-            }
+
 
 
         }

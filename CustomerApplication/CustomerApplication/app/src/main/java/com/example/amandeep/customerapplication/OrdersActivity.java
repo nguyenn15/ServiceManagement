@@ -9,13 +9,22 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Adapter.MyAdapter;
 import Model.ListItem;
+import ORM.RequestOrder;
+import Service.FactoryServiceAPI;
+import Service.RequestOrderApi;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrdersActivity extends AppCompatActivity {
 
@@ -105,12 +114,51 @@ setRecyclerView();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         listItems=new ArrayList<>();
-// m just using order for convience but actually get request for particular customer from database and show in text view
+/*// m just using order for convience but actually get request for particular customer from database and show in text view
         for(Order tp : orders){
             ListItem listItem=new ListItem("Order Number "+ tp.getId()+"",tp.getStatus().toString());
             listItems.add(listItem);
+        }*/
+
+        try {
+            RequestOrderApi requestorderApi = FactoryServiceAPI.GetRequesetOrderApi();
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("Status", RequestOrder.STATUS.REVIEWED.getValue()+"");
+
+            Call<List<RequestOrder>> requestorders = requestorderApi.byStatus(params);
+
+
+            requestorders.enqueue(new Callback<List<RequestOrder>>() {
+                @Override
+                public void onResponse(Call<List<RequestOrder>> call, Response<List<RequestOrder>> response) {
+                    List<RequestOrder> requestOrders = response.body();
+                    /// add to list here
+                    //Toast.makeText(AdminHomePage.this, "request Order" + requestOrders.get(0), Toast.LENGTH_SHORT).show();
+                    //  SetDataSourceFragment1(requestOrders);
+
+
+
+                    for (RequestOrder tp : requestOrders) {
+                        Log.i("data",tp.getIdRequest()+"");
+                        ListItem listItem = new ListItem(tp.getIdRequest(), tp.getStatus().toString());
+                        listItems.add(listItem);
+                    }
+                    adapter.notifyDataSetChanged();
+
+                }
+
+                @Override
+                public void onFailure(Call<List<RequestOrder>> call, Throwable t) {
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
         adapter=new MyAdapter(this,listItems);
         recyclerView.setAdapter(adapter);

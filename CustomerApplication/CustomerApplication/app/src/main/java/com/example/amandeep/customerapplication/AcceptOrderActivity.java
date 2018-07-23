@@ -7,20 +7,49 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import Model.ListItem;
+import ORM.RequestOrder;
 import ORM.RequestResponse;
+import ORM.User;
+import Service.FactoryServiceAPI;
+import Service.RequestOrderApi;
+import Service.RequestResponseApi;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AcceptOrderActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     DrawerLayout drawerLayout;
     NavigationView navigation;
 
-    private RequestResponse quotes;; //quote details
+    //for updating request order
+    private double area;
+    private int noOfDoors;
+    private int entryDoors;
+    private int openWindows;
+    private double openAreas;
+    private int doorbell;
+    private String locationOfService;
+    private int status;
+    private int idCustomer;
+    private int idManager;
+    private int idAdmin;
+    private int customerID;
+    private int RequestId;
+
+    //private RequestResponse quotes;; //quote details
 
     TextView quote;
     Button send;
@@ -29,6 +58,8 @@ public class AcceptOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accept_order);
+        Intent intent=getIntent();
+         RequestId=intent.getIntExtra("requestId",0);
 
         quote=(TextView)findViewById(R.id.details);
         send=(Button)findViewById(R.id.sendOrder);
@@ -37,6 +68,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 // here status of request is changed to accepted
+               updateStatus();
             }
         });
 
@@ -89,6 +121,86 @@ setData();
 
     }
 
+    private void updateDetails()
+    {
+        User currentUser = FactoryServiceAPI.currentUser;
+        Map<String, String> paramUpdate = new HashMap<String, String>();
+        paramUpdate.put("idRequest", RequestId+"");
+        paramUpdate.put("Area", area+"");
+        paramUpdate.put("NoOfDoors", noOfDoors+"");
+        paramUpdate.put("EntryDoors", entryDoors+"");
+        paramUpdate.put("OpenWindows", openWindows+"");
+        paramUpdate.put("OpenAreas", openAreas+"");
+        paramUpdate.put("DoorBell", doorbell+"");
+        paramUpdate.put("LocationOfService", locationOfService);
+        paramUpdate.put("Status", RequestOrder.STATUS.ACCEPTED.getValue()+"");
+        paramUpdate.put("idCustomer",idCustomer +"");
+        paramUpdate.put("idManager", idManager+"");
+        paramUpdate.put("idAdmin",+idAdmin+"");
+
+        RequestOrderApi requestorderApi = FactoryServiceAPI.GetRequesetOrderApi();
+        Call<RequestOrder> requestorderUpdate = requestorderApi.Update(paramUpdate);
+        requestorderUpdate.enqueue(new Callback<RequestOrder>() {
+            @Override
+            public void onResponse(Call<RequestOrder> call, Response<RequestOrder> response) {
+                RequestOrder requestOrder=response.body();
+                if(requestOrder==null)
+                {
+                    Toast.makeText(AcceptOrderActivity.this,"Cannot update the status of Request Order",Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(AcceptOrderActivity.this,"Updated the status of Request Order with id: "+ requestOrder.getIdRequest(),Toast.LENGTH_SHORT).show();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<RequestOrder> call, Throwable t) {
+                Log.i("Failure",call.request()+"");
+
+            }
+        });
+    }
+
+
+    private void updateStatus() {
+
+        RequestOrderApi requestorderApi = FactoryServiceAPI.GetRequesetOrderApi();
+        Map<String, String> param = new HashMap<String, String>();
+        param.put("idRequest", RequestId+"");
+        Call<RequestOrder> requestordersById = requestorderApi.RequestOrdersById(param);
+
+        requestordersById.enqueue(new Callback<RequestOrder>() {
+            @Override
+            public void onResponse(Call<RequestOrder> call, Response<RequestOrder> response) {
+                RequestOrder requestOrder= response.body();
+                area=  requestOrder.getArea();
+                noOfDoors=requestOrder.getNoOfDoors();
+                entryDoors=requestOrder.getEntryExitDoors();
+                openWindows=requestOrder.getOpenWindows();
+                openAreas=requestOrder.getOpenAreas();
+                doorbell=requestOrder.getDoorBell();
+                locationOfService=requestOrder.getLocationOfService();
+                idCustomer=requestOrder.getIdCustomer();
+                idManager=requestOrder.getIdManager();
+                idAdmin=requestOrder.getIdAdmin();
+
+                updateDetails();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<RequestOrder> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+    }
+
     private void setupToolbarMenu() {
         mToolbar=(Toolbar)findViewById(R.id.toolbar);
         mToolbar.setTitle("Orders");
@@ -98,13 +210,47 @@ setData();
 
     public void setData()
     {
-        int s = getIntent().getIntExtra("requestId",0);
+       /* int s = getIntent().getIntExtra("requestId",0);
        //get request details using request id and display in text view
 
         quotes=new RequestResponse(1,2,3,
                 4,5,23, RequestResponse.STATUS.ACCEPTED,s);
 
         quote.setText("Details Of Quote "+quotes.getStatus()+quotes.getCableBundle()+quotes.getDoorBell());
+        */
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("idRequest", RequestId+"");
+        RequestResponseApi requestResponseApi = FactoryServiceAPI.GetRequestResponseApi();
+        final Call< List<RequestResponse> > requestResponse = requestResponseApi.getQuoteById(params);
+
+        requestResponse.enqueue(new Callback<List<RequestResponse>>() {
+            @Override
+            public void onResponse(Call<List<RequestResponse>> call, Response<List<RequestResponse>> response) {
+                if(response==null)
+                {
+                    Log.i("Null",call.request()+"");
+                }
+                else
+                {
+                    List<RequestResponse> lst = response.body();
+                    RequestResponse objQuote = lst.get(0);
+
+                    quote.setText("Number of Alarms needed: " + objQuote.getNoOfAlarmPanel() +"\n" +
+                            "Number of Motion Detectors needed: " + objQuote.getMotionDetector() +"\n" +
+                            "Number of doorbells needed: " + objQuote.getDoorBell() + "\n" +
+                            "Number of Cable Bundles needed: " + objQuote.getCableBundle() + "\n" +
+                            "Total Cost: " + objQuote.getTotalCost());
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<RequestResponse>> call, Throwable t) {
+
+            }
+        });
 
     }
 }

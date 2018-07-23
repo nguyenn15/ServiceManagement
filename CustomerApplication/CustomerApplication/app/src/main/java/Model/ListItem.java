@@ -5,24 +5,23 @@ package Model;
 
 public class ListItem {
 
-    private String description;
+    private int id;
     private String status;
 
+    public ListItem(int id, String status) {
 
-    public ListItem(String description, String status) {
-
-        this.description = description;
+        this.id = id;
         this.status=status;
 
     }
 
-     public String getDescription() {
-        return description;
+     public int getId() {
+        return id;
     }
 
-    public void setDescription(String description)
+    public void setId(int id)
     {
-        this.description = description;
+        this.id = id;
     }
 
     public String getStatus() {
