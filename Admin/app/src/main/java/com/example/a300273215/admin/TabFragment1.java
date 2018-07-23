@@ -45,25 +45,15 @@ public class TabFragment1 extends Fragment {
 
     View view;
 
-     public TabFragment1()
-    {
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab_fragment_1, container, false);
-        //addOrders();
         setRecyclerView(view);
         return view;
 
     }
 
-
-    public void addOrders(List<RequestOrder> orders) {
-       this.orders = orders;
-
-    }
 
     public void setRecyclerView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
@@ -75,10 +65,8 @@ public class TabFragment1 extends Fragment {
 
         try {
             RequestOrderApi requestorderApi = FactoryServiceAPI.GetRequesetOrderApi();
-//            Call<List<RequestOrder>> requestorders = requestorderApi.RequestOrders();
-///-----------------------
             Map<String, String> params = new HashMap<String, String>();
-            params.put("Status", RequestOrder.STATUS.ACCEPTED.getValue()+"");
+            params.put("Status", RequestOrder.STATUS.PENDING.getValue()+"");
 
             Call<List<RequestOrder>> requestorders = requestorderApi.byStatus(params);
 
@@ -95,7 +83,7 @@ public class TabFragment1 extends Fragment {
 
                     for (RequestOrder tp : requestOrders) {
                         Log.i("data",tp.getIdRequest()+"");
-                        ListItem listItem = new ListItem("Request Number " + tp.getIdRequest() + "", tp.getStatus().toString());
+                        ListItem listItem = new ListItem(tp.getIdRequest(), tp.getStatus().toString(),tp.getIdCustomer());
                         listItems.add(listItem);
                     }
 
@@ -111,12 +99,6 @@ public class TabFragment1 extends Fragment {
             e.printStackTrace();
         }
 
-
-
-        for (RequestOrder tp : orders) {
-            ListItem listItem = new ListItem("Request Number " + tp.getIdRequest() + "", tp.getStatus().toString());
-            listItems.add(listItem);
-        }
 
         adapter = new Tab1RecyclerAdapter(getActivity(), listItems);
         recyclerView.setAdapter(adapter);

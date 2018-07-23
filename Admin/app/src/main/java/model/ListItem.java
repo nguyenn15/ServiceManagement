@@ -3,30 +3,39 @@ package model;
 
 public class ListItem {
 
-    private String description;
-    private String buttonText;
+    private int id;
+    private String status;
+    private int idCustomer;
 
-    public ListItem(String description, String buttonText) {
+    public ListItem(int id, String status, int idCustomer) {
 
-        this.description = description;
-        this.buttonText=buttonText;
+        this.id = id;
+        this.status=status;
+        this.idCustomer=idCustomer;
     }
 
-    public String getButtonText() {
-        return buttonText;
+    public int getIdCustomer() {
+        return idCustomer;
     }
 
-    public void setButtonText(String buttonText) {
-        this.buttonText = buttonText;
+    public void setIdCustomer(int idCustomer) {
+        this.idCustomer = idCustomer;
     }
 
-    public String getDescription() {
-        return description;
+    public String getStatus() {
+        return status;
     }
 
-
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setStatus(String status) {
+        this.status = status;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

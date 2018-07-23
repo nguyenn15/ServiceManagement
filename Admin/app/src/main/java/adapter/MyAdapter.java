@@ -38,8 +38,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(MyAdapter.ViewHolder holder, int position) {
         ListItem listItem=listItems.get(position);
 
-        holder.description.setText(listItem.getDescription());
-        holder.statusText.setText(listItem.getButtonText());
+        holder.description.setText("Request Number " + listItem.getId());
+        holder.statusText.setText(listItem.getStatus());
 
     }
 

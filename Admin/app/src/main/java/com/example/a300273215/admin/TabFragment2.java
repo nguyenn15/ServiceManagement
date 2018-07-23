@@ -68,7 +68,7 @@ public class TabFragment2 extends Fragment {
         listItems=new ArrayList<>();
 
         for(Order tp : orders){
-            ListItem listItem=new ListItem("Request Number "+ tp.getId()+"",tp.getStatus().toString());
+            ListItem listItem=new ListItem(tp.getId(),tp.getStatus().toString(),1);
             listItems.add(listItem);
         }
 

@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.a300273215.admin.R;
+import com.example.a300273215.admin.SendQuoteToCustomer;
 
 import java.util.List;
 
@@ -38,8 +40,8 @@ public class Tab1RecyclerAdapter extends RecyclerView.Adapter<Tab1RecyclerAdapte
     public void onBindViewHolder(Tab1RecyclerAdapter.ViewHolder holder, int position) {
         ListItem listItem=listItems.get(position);
 
-        holder.description.setText(listItem.getDescription());
-        holder.statusText.setText(listItem.getButtonText());
+        holder.description.setText("Request Number " + listItem.getId());
+        holder.statusText.setText(listItem.getStatus());
 
     }
 
@@ -68,6 +70,11 @@ public class Tab1RecyclerAdapter extends RecyclerView.Adapter<Tab1RecyclerAdapte
         public void onClick(View view) {
             int position=getAdapterPosition();
             ListItem item= listItems.get(position);
+            Intent myIntent = new Intent(context,
+                    SendQuoteToCustomer.class);
+            myIntent.putExtra("id",item.getId());
+            myIntent.putExtra("idCustomer",item.getIdCustomer());
+            context. startActivity(myIntent);
 
 
         }
