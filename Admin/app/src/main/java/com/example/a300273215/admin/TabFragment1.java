@@ -1,5 +1,6 @@
 package com.example.a300273215.admin;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,10 +43,17 @@ public class TabFragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab_fragment_1, container, false);
-        setRecyclerView(view,this);
+
         return view;
 
 
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setRecyclerView(view,this);
 
     }
 
@@ -98,9 +106,9 @@ public class TabFragment1 extends Fragment {
             e.printStackTrace();
         }
 
-
         adapter = new Tab1RecyclerAdapter(getActivity(), listItems);
         recyclerView.setAdapter(adapter);
     }
+
 
 }

@@ -88,7 +88,14 @@ public class OrdersActivity extends AppCompatActivity {
         });
 
 addOrders();
-setRecyclerView();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setRecyclerView();
+
     }
 
     private void setupToolbarMenu() {

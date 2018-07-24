@@ -33,6 +33,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     DrawerLayout drawerLayout;
     NavigationView navigation;
+    private Button btnReject;
 
     //for updating request order
     private double area;
@@ -58,6 +59,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accept_order);
         Intent intent=getIntent();
+        btnReject=(Button)findViewById(R.id.rejectOrder);
          RequestId=intent.getIntExtra("requestId",0);
 
         quote=(TextView)findViewById(R.id.details);
@@ -66,10 +68,22 @@ public class AcceptOrderActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                send.setEnabled(false);
+                btnReject.setEnabled(false);
 // here status of request is changed to accepted
-               updateStatus();
+               updateStatus(RequestOrder.STATUS.ACCEPTED.getValue()+"");
             }
         });
+
+        btnReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                send.setEnabled(false);
+                btnReject.setEnabled(false);
+                updateStatus(RequestOrder.STATUS.REJECTED.getValue()+"");
+            }
+        });
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -120,7 +134,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
 
     }
 
-    private void updateDetails()
+    private void updateDetails(final String status)
     {
         User currentUser = FactoryServiceAPI.currentUser;
         Map<String, String> paramUpdate = new HashMap<String, String>();
@@ -132,7 +146,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
         paramUpdate.put("OpenAreas", openAreas+"");
         paramUpdate.put("DoorBell", doorbell+"");
         paramUpdate.put("LocationOfService", locationOfService+"");
-        paramUpdate.put("Status", RequestOrder.STATUS.ACCEPTED.getValue()+"");
+        paramUpdate.put("Status", status);
         paramUpdate.put("idCustomer",idCustomer +"");
         paramUpdate.put("idManager", idManager+"");
         paramUpdate.put("idAdmin",+idAdmin+"");
@@ -148,7 +162,8 @@ public class AcceptOrderActivity extends AppCompatActivity {
                     Toast.makeText(AcceptOrderActivity.this,"Cannot update the status of Request Order",Toast.LENGTH_SHORT).show();
                 }
                 else
-                    Toast.makeText(AcceptOrderActivity.this,"Request Sent To Company "+ requestOrder.getIdRequest(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AcceptOrderActivity.this,"You " + RequestOrder.STATUS.FromInt(Integer.parseInt(status)) +" Order number " + requestOrder.getIdRequest(),Toast.LENGTH_SHORT).show();
+
 
 
             }
@@ -162,7 +177,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
     }
 
 
-    private void updateStatus() {
+    private void updateStatus(final String status) {
 
         RequestOrderApi requestorderApi = FactoryServiceAPI.GetRequesetOrderApi();
         Map<String, String> param = new HashMap<String, String>();
@@ -184,7 +199,7 @@ public class AcceptOrderActivity extends AppCompatActivity {
                 idManager=requestOrder.getIdManager();
                 idAdmin=requestOrder.getIdAdmin();
 
-                updateDetails();
+                updateDetails(status);
 
 
             }
@@ -228,11 +243,11 @@ public class AcceptOrderActivity extends AppCompatActivity {
                     List<RequestResponse> lst = response.body();
                     RequestResponse objQuote = lst.get(0);
 
-                    quote.setText("Number of Alarms needed: \n" + objQuote.getNoOfAlarmPanel() +"\n" +
-                            "Number of Motion Detectors needed:\n " + objQuote.getMotionDetector() +"\n" +
-                            "Number of doorbells needed: \n" + objQuote.getDoorBell() + "\n" +
-                            "Number of Cable Bundles needed: \n" + objQuote.getCableBundle() + "\n" +
-                            "Total Cost: \n" + objQuote.getTotalCost());
+                    quote.setText("Number of Alarms needed: " + objQuote.getNoOfAlarmPanel() +"\n" +
+                            "Number of Motion Detectors needed: " + objQuote.getMotionDetector() +"\n" +
+                            "Number of doorbells needed: " + objQuote.getDoorBell() + "\n" +
+                            "Number of Cable Bundles needed: " + objQuote.getCableBundle() + "\n" +
+                            "Total Cost: " + objQuote.getTotalCost());
 
                 }
 
