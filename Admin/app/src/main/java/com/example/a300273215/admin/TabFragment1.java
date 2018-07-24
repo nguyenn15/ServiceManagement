@@ -1,5 +1,6 @@
 package com.example.a300273215.admin;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,13 +42,15 @@ public class TabFragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab_fragment_1, container, false);
-        setRecyclerView(view);
+        setRecyclerView(view,this);
         return view;
+
+
 
     }
 
 
-    public void setRecyclerView(View view) {
+    public void setRecyclerView(final View view, final TabFragment1 tabFragment1) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
 
@@ -78,6 +81,9 @@ public class TabFragment1 extends Fragment {
                         ListItem listItem = new ListItem(tp.getIdRequest(), tp.getStatus().toString(),tp.getIdCustomer());
                         listItems.add(listItem);
                     }
+                    SharedPreferences.Editor editor = tabFragment1.getActivity().getSharedPreferences("firstcount",tabFragment1.getActivity().MODE_PRIVATE).edit();
+                    editor.putInt("firstcount", listItems.size());
+                    editor.apply();
                     adapter.notifyDataSetChanged();
 
                 }

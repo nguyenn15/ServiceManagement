@@ -28,6 +28,8 @@ public class  AdminHomePage extends AppCompatActivity {
         setContentView(R.layout.activity_admin_home_page);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         setupToolbarMenu();
+        //service for notification
+        startService(new Intent(this,MyService.class));
 
         ActionBarDrawerToggle drawerToggle=new ActionBarDrawerToggle(this, drawerLayout, mToolbar, R.string.drawerOpen, R.string.drawerClose);
 
@@ -97,6 +99,11 @@ public class  AdminHomePage extends AppCompatActivity {
     private void setupToolbarMenu() {
         mToolbar=(Toolbar)findViewById(R.id.toolbar);
         mToolbar.setTitle("REQUESTS");
+    }
+
+    public void Timer()
+    {
+
     }
 
 }

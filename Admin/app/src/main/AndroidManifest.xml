@@ -22,6 +22,8 @@
         <activity android:name=".EditProfile" />
         <activity android:name=".SendQuoteToCustomer" />
         <activity android:name=".SendToManager"></activity>
+
+        <service android:name=".MyService" />
     </application>
 
 </manifest>
