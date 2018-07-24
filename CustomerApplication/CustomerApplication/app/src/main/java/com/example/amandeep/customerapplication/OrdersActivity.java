@@ -36,12 +36,14 @@ public class OrdersActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private List<ListItem> listItems;
     List<Order> orders=new ArrayList<>();
-// here get requested service and set its name in textview pf adapter
+// here get requested service and set its name in textview of adapter
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
+
+        listItems=new ArrayList<>();
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -87,13 +89,15 @@ public class OrdersActivity extends AppCompatActivity {
             }
         });
 
-addOrders();
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        addOrdersByStatus(RequestOrder.STATUS.PENDING.getValue()+"");
+        addOrdersByStatus(RequestOrder.STATUS.REVIEWED.getValue()+"");
+        addOrdersByStatus(RequestOrder.STATUS.ACCEPTED.getValue()+"");
         setRecyclerView();
 
     }
@@ -103,36 +107,13 @@ addOrders();
         mToolbar.setTitle("Orders");
     }
 
-    public void addOrders()
+
+    public void addOrdersByStatus(String status)
     {
-        //TOdO HERE GET Orders from database and add to
-        int id=1;
-        orders.add(new Order(id,"first","pending"));
-        orders.add(new Order(id+1,"second","approved"));
-
-
-
-    }
-
-    public void setRecyclerView()
-    {
-        recyclerView=(RecyclerView)findViewById(R.id.recycleView);
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-        listItems=new ArrayList<>();
-/*// m just using order for convience but actually get request for particular customer from database and show in text view
-        for(Order tp : orders){
-            ListItem listItem=new ListItem("Order Number "+ tp.getId()+"",tp.getStatus().toString());
-            listItems.add(listItem);
-        }*/
-
         try {
             RequestOrderApi requestorderApi = FactoryServiceAPI.GetRequesetOrderApi();
             Map<String, String> params = new HashMap<String, String>();
-            params.put("Status", RequestOrder.STATUS.REVIEWED.getValue()+"");
+            params.put("Status", status);
 
             Call<List<RequestOrder>> requestorders = requestorderApi.byStatus(params);
 
@@ -165,6 +146,26 @@ addOrders();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+
+    public void setRecyclerView()
+    {
+        recyclerView=(RecyclerView)findViewById(R.id.recycleView);
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+/*// m just using order for convience but actually get request for particular customer from database and show in text view
+        for(Order tp : orders){
+            ListItem listItem=new ListItem("Order Number "+ tp.getId()+"",tp.getStatus().toString());
+            listItems.add(listItem);
+        }*/
+
+
 
 
         adapter=new MyAdapter(this,listItems);

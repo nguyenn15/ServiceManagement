@@ -123,10 +123,10 @@ public class MyService extends Service {
                     SharedPreferences old = getSharedPreferences("firstcount", MODE_PRIVATE);
                     int oldCount = old.getInt("firstcount", MODE_PRIVATE);
                     int newCount = listItems.size();
-                    Log.e("new count", newCount + "");
-                    Log.e("old count", oldCount + "");
+                   // Log.e("new count", newCount + "");
+                   // Log.e("old count", oldCount + "");
                     if (newCount > oldCount && oldCount != -1) {
-                        Log.e("Kyu aa rhi", "arsh");
+                      //  Log.e("Kyu aa rhi", "arsh");
                         doServiceStart(intent, startId);
 
 

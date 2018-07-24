@@ -1,9 +1,14 @@
 package com.example.a300273215.admin;
 
 import android.content.Intent;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
@@ -13,6 +18,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 
 import ORM.RequestOrder;
 import ORM.RequestResponse;
@@ -25,6 +31,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SendQuoteToCustomer extends AppCompatActivity {
+
+    DrawerLayout drawerLayout;
+    NavigationView navigation;
+    private Toolbar mToolbar;
+
 private EditText noOfAlarmPanel;
     private EditText motionDetector;
     private EditText doorBell;
@@ -48,22 +59,71 @@ private EditText noOfAlarmPanel;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_quote_to_customer);
+
+
+
         noOfAlarmPanel=(EditText)findViewById(R.id.noOfAlarmPanel);
         motionDetector=(EditText)findViewById(R.id.motionDetector);
         doorBell=(EditText)findViewById(R.id.doorBell);
         cabelBundle=(EditText)findViewById(R.id.cableBundle);
         totalCost=(EditText)findViewById(R.id.totalCost);
         sendQuote=(Button)findViewById(R.id.sendQuote);
+
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        setupToolbarMenu();
+        //service for notification
+        startService(new Intent(this,MyService.class));
+
+        ActionBarDrawerToggle drawerToggle=new ActionBarDrawerToggle(this, drawerLayout, mToolbar, R.string.drawerOpen, R.string.drawerClose);
+
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        navigation = (NavigationView)findViewById(R.id.nav_view);
+        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                switch (id) {
+                    case R.id.home:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                        startActivity(new Intent(SendQuoteToCustomer.this, AdminHomePage.class));
+                        break;
+                    case R.id.profile:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                        startActivity(new Intent(SendQuoteToCustomer.this, EditProfile.class));
+
+                        break;
+
+                    case R.id.logout:
+                        //Do some thing here
+                        // add navigation drawer item onclick method here
+                        startActivity(new Intent(SendQuoteToCustomer.this, LoginActivity.class));
+                        break;
+                }
+                return false;
+            }
+        });
         sendQuote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                          sendResponse();
+
             }
         });
 
 
 
     }
+
+    private void setupToolbarMenu() {
+        mToolbar=(Toolbar)findViewById(R.id.toolbar);
+        mToolbar.setTitle("SEND QUOTE TO CUSTOMER");
+    }
+
 
     private void sendResponse() {
         if (!noOfAlarmPanel.getText().toString().equals("") &&
@@ -117,6 +177,10 @@ private EditText noOfAlarmPanel;
                         doorBell.setText("");
                         cabelBundle.setText("");
                         totalCost.setText("");
+
+
+                        Intent intent=new Intent(SendQuoteToCustomer.this,AdminHomePage.class);
+                        startActivity(intent);
 
 
                     }

@@ -163,7 +163,8 @@ public class AcceptOrderActivity extends AppCompatActivity {
                 }
                 else
                     Toast.makeText(AcceptOrderActivity.this,"You " + RequestOrder.STATUS.FromInt(Integer.parseInt(status)) +" Order number " + requestOrder.getIdRequest(),Toast.LENGTH_SHORT).show();
-
+                Intent intent=new Intent(AcceptOrderActivity.this,OrdersActivity.class);
+                startActivity(intent);
 
 
             }
