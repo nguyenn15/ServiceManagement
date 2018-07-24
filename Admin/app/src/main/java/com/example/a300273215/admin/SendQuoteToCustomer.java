@@ -1,6 +1,7 @@
 package com.example.a300273215.admin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -101,6 +102,9 @@ private EditText noOfAlarmPanel;
                     case R.id.logout:
                         //Do some thing here
                         // add navigation drawer item onclick method here
+                        SharedPreferences.Editor editor = getSharedPreferences("login",MODE_PRIVATE).edit();
+                        editor.putString("login", "Logout");
+                        editor.apply();
                         startActivity(new Intent(SendQuoteToCustomer.this, LoginActivity.class));
                         break;
                 }

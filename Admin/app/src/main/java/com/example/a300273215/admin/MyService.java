@@ -153,17 +153,32 @@ public class MyService extends Service {
 
     private void doServiceStart(Intent intent, int startId) {
 
+        SharedPreferences old = getSharedPreferences("login", MODE_PRIVATE);
+        String check = old.getString("login", "");
+        Log.i("check value",check);
+        Intent toLaunch=null;
+        PendingIntent intentBack;
+
+        if (check.equals("Login")) {
+
+             toLaunch = new Intent(getApplicationContext(),
+                    AdminHomePage.class);
+
+        }
+        else if (check.equals("Logout"))
+        {
+             toLaunch = new Intent(getApplicationContext(),
+                    LoginActivity.class);
 
 
-                Intent toLaunch = new Intent(getApplicationContext(),
-                        AdminHomePage.class);
+        }
 
-                PendingIntent intentBack = PendingIntent.getActivity(
-                        getApplicationContext(),
-                        0,
-                        toLaunch,
-                        0
-                );
+        intentBack = PendingIntent.getActivity(
+                getApplicationContext(),
+                0,
+                toLaunch,
+                0
+        );
                 NotificationCompat.Builder builder =
                         new NotificationCompat.Builder(
                                 getApplicationContext(),

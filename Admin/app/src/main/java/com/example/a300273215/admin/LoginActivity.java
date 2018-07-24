@@ -1,6 +1,7 @@
 package com.example.a300273215.admin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -71,7 +72,9 @@ public class LoginActivity extends AppCompatActivity {
                     if(user.getId()>0)
                     {
                         FactoryServiceAPI.currentUser = user; // keep current logged user to system
-
+                        SharedPreferences.Editor editor = getSharedPreferences("login",MODE_PRIVATE).edit();
+                        editor.putString("login", "Login");
+                        editor.apply();
                         Intent myIntent = new Intent(LoginActivity.this,
                                 AdminHomePage.class);
                         startActivity(myIntent);
