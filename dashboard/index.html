@@ -43,10 +43,13 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-4">
                    <block id="idRequestOrder"/>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-4">
+                   <block id="idReviewedOrder" >
+                </div>
+                 <div class="col-lg-3 col-md-4">
                    <block id="idAcceptOrder" >
                 </div>
                
@@ -77,6 +80,23 @@
                 </div>
               <div class="col-lg-6">
                  
+                    <div class="panel panel-default">
+                       <div class="panel-heading">
+                            <i class="fa fa-clock-o fa-fw"></i> Reviewed Orders
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <tabledetail id='idReviewedTable'/>
+                                
+                                
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+
                     <div class="panel panel-default">
                        <div class="panel-heading">
                             <i class="fa fa-clock-o fa-fw"></i> Accepted Orders
@@ -120,12 +140,21 @@
         	REJECTED:3,
         	INPROGRESS:4
         };
+        //keep numberof request
+        NoOfRequest =0;
+        NoOfAccepted =0;
+        NoOfReviewed =0;
+        
+        var TAGS =[];
 
 
-        riot.mount('#idRequestOrder', {title:'Requests',value:0});
-        riot.mount('#idAcceptOrder', {title:'Accepted',value:0});
+        riot.mount('#idRequestOrder', {title:'Requests', key:'REQUEST',value:0, style:'primary'});
+        riot.mount('#idAcceptOrder', {title:'Accepted', key:'ACCEPTED',value:0, style:'green'});
+        riot.mount('#idReviewedOrder', {title:'Reviewed', key:'REVIEWED',value:0, style:'yellow'});
+
         
         riot.mount('#idRequestTable', {title:'Requests',status:STATUS.PENDING,items:[]});
+        riot.mount('#idReviewedTable', {title:'Reviewed',status:STATUS.REVIEWED,items:[]});
         riot.mount('#idAcceptedTable', {title:'Accepted',status:STATUS.ACCEPTED,items:[]});
         
         //------------------------------------------------------------------------------------
