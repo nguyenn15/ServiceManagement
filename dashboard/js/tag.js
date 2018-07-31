@@ -26,7 +26,6 @@
 
 </block>
 
-
 <tabledetail>
     <table class="table table-bordered table-hover table-striped">
         <thead>
