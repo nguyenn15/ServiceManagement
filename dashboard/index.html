@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>System Management Dashboard</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+   
+
+    <!-- Custom CSS -->
+    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+
+    
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script src="js/tag.js" type="riot/tag"></script>
+    <script src="https://rawgit.com/riot/riot/master/riot%2Bcompiler.min.js"></script>
+
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+          <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">System Management Dashboard</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                   <block id="idRequestOrder"/>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                   <block id="idReviewedOrder" >
+                </div>
+                 <div class="col-lg-3 col-md-4">
+                   <block id="idAcceptOrder" >
+                </div>
+               
+                
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-6">
+                 
+                    <div class="panel panel-default">
+                       <div class="panel-heading">
+                            <i class="fa fa-clock-o fa-fw"></i> Request Orders
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <tabledetail id='idRequestTable'/>
+                                
+                                
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    
+                  
+                </div>
+              <div class="col-lg-6">
+                 
+                    <div class="panel panel-default">
+                       <div class="panel-heading">
+                            <i class="fa fa-clock-o fa-fw"></i> Reviewed Orders
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <tabledetail id='idReviewedTable'/>
+                                
+                                
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+
+                    <div class="panel panel-default">
+                       <div class="panel-heading">
+                            <i class="fa fa-clock-o fa-fw"></i> Accepted Orders
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <tabledetail id='idAcceptedTable'/>
+                                
+                                
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    
+                  
+                </div>
+            </div>
+            <!-- /.row -->
+            
+                               
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+   <script>
+    var STATUS={
+        	PENDING:0,
+        	REVIEWED:1,
+        	ACCEPTED:2,
+        	REJECTED:3,
+        	INPROGRESS:4
+        };
+        //keep numberof request
+        NoOfRequest =0;
+        NoOfAccepted =0;
+        NoOfReviewed =0;
+        
+        var TAGS =[];
+
+
+        riot.mount('#idRequestOrder', {title:'Requests', key:'REQUEST',value:0, style:'primary'});
+        riot.mount('#idAcceptOrder', {title:'Accepted', key:'ACCEPTED',value:0, style:'green'});
+        riot.mount('#idReviewedOrder', {title:'Reviewed', key:'REVIEWED',value:0, style:'yellow'});
+
+        
+        riot.mount('#idRequestTable', {title:'Requests',status:STATUS.PENDING,items:[]});
+        riot.mount('#idReviewedTable', {title:'Reviewed',status:STATUS.REVIEWED,items:[]});
+        riot.mount('#idAcceptedTable', {title:'Accepted',status:STATUS.ACCEPTED,items:[]});
+        
+        //------------------------------------------------------------------------------------
+    
+        //------------------------------------------------------------------------------------
+        function getByStatus(status, cb)
+        {
+        	var link = `http://35.237.181.74:8080/jSMWebService/rest/RequestOrderService/byStatus?Status=`+status;
+        	$.getJSON(link, function(result){
+        		console.log("Reloaded data");
+		        if(cb) cb(result);
+		    });
+        }
+     
+        
+        //------------------------------------------------------------------------------------
+        
+     //   setInterval(function(){
+        	
+        	
+        	
+        	
+      //  },1000);
+    </script>
+   
+
+</body>
+
+</html>
